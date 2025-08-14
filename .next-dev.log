@@ -1,0 +1,133 @@
+
+> jeremiah-miller@0.1.0 dev
+> next dev --turbopack
+
+ ⚠ Warning: Found multiple lockfiles. Selecting /Users/alexpermut/package-lock.json.
+   Consider removing the lockfiles at:
+   * /Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/pnpm-lock.yaml
+
+   ▲ Next.js 15.4.6 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.100.186:3000
+
+ ✓ Starting...
+ ✓ Ready in 888ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1456ms
+ GET / 200 in 1688ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 583ms
+ GET /media/hero-4k.webm 416 in 632ms
+ GET /media/hero-4k.mp4 416 in 17ms
+ GET /media/hero-1080.mp4 416 in 15ms
+ ✓ Compiled /favicon.ico in 102ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 363ms
+ ✓ Compiled in 178ms
+ ✓ Compiled in 74ms
+ ✓ Compiled / in 89ms
+ GET / 200 in 222ms
+ ✓ Compiled / in 11ms
+ GET / 200 in 102ms
+ GET / 200 in 211ms
+ GET /media/hero-4k.webm 416 in 34ms
+ GET /media/hero-4k.mp4 416 in 36ms
+ GET /media/hero-1080.mp4 416 in 25ms
+ ✓ Compiled in 185ms
+ ✓ Compiled / in 18ms
+ GET / 200 in 173ms
+ GET / 200 in 28ms
+ ✓ Compiled / in 8ms
+ GET / 200 in 118ms
+ GET / 200 in 107ms
+ GET / 200 in 114ms
+ GET / 200 in 96ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 226ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 222ms
+ ✓ Compiled / in 13ms
+ GET / 200 in 119ms
+ GET / 200 in 22ms
+ GET /media/hero-4k.webm 416 in 50ms
+ GET /media/hero-4k.mp4 416 in 15ms
+ GET /media/hero-1080.mp4 416 in 14ms
+ GET /media/hero-4k.webm 416 in 23ms
+ GET /media/hero-4k.mp4 416 in 14ms
+ GET /media/hero-1080.mp4 416 in 11ms
+ ✓ Compiled /about in 219ms
+ GET /about 200 in 246ms
+ ✓ Compiled in 41ms
+ ✓ Compiled /about in 28ms
+ GET /about 200 in 234ms
+ GET /about 200 in 212ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 245ms
+ GET /about 200 in 24ms
+ ✓ Compiled in 12ms
+ ✓ Compiled /music in 387ms
+ GET /music 200 in 440ms
+ ○ Compiling /globe ...
+ ✓ Compiled /globe in 583ms
+ GET /globe 200 in 619ms
+ ✓ Compiled /api/heatmap in 358ms
+ GET /api/heatmap 200 in 436ms
+ GET /api/heatmap 200 in 451ms
+ ⨯ [TypeError: Failed to parse URL from /api/heatmap] {
+  digest: '2318400876',
+  [cause]: [TypeError: Invalid URL] {
+    code: 'ERR_INVALID_URL',
+    input: '/api/heatmap'
+  }
+}
+ POST /globe 500 in 116ms
+ GET /favicon.ico 200 in 256ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled / in 28ms
+ GET / 200 in 328ms
+ GET /favicon.ico?favicon.45db1c09.ico 500 in 14ms
+ ✓ Compiled in 6ms
+ GET / 200 in 138ms
+ GET / 200 in 44ms
+ ✓ Compiled in 80ms
+ GET /media/hero-4k.webm 500 in 181ms
+ GET /media/hero-4k.mp4 500 in 11ms
+ GET /media/hero-1080.mp4 500 in 9ms
+ GET / 200 in 159ms
+ GET /media/hero-4k.webm 500 in 14ms
+ GET /media/hero-4k.mp4 500 in 10ms
+ GET /media/hero-1080.mp4 500 in 22ms
+ GET /favicon.ico?favicon.45db1c09.ico 500 in 25ms
+ GET / 200 in 42ms
+ ✓ Compiled in 39ms
+ ✓ Compiled /globe in 63ms
+ GET /globe 200 in 175ms
+ ✓ Compiled /_not-found/page in 258ms
+ HEAD /textures/earth_8k.jpg 404 in 412ms
+ HEAD /textures/earth_bump_8k.jpg 404 in 414ms
+ HEAD /textures/earth_night_8k.jpg 404 in 380ms
+ HEAD /textures/earth_8k.jpg 404 in 423ms
+ HEAD /textures/earth_night_8k.jpg 404 in 433ms
+ HEAD /textures/earth_bump_8k.jpg 404 in 419ms
+ GET /about 200 in 321ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 295ms
+ GET / 200 in 47ms
+ GET /media/hero-4k.webm 416 in 71ms
+ GET /media/hero-4k.mp4 416 in 19ms
+ GET /media/hero-1080.mp4 416 in 13ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 219ms
+ GET /globe 200 in 63ms
+ HEAD /textures/earth_bump_8k.jpg 404 in 75ms
+ HEAD /textures/earth_bump_8k.jpg 404 in 99ms
+ HEAD /textures/earth_night_8k.jpg 404 in 112ms
+ HEAD /textures/earth_8k.jpg 404 in 153ms
+ HEAD /textures/earth_8k.jpg 404 in 153ms
+ HEAD /textures/earth_night_8k.jpg 404 in 165ms
+ GET / 200 in 54ms
+ GET /media/hero-4k.webm 416 in 26ms
+ GET /media/hero-4k.mp4 416 in 14ms
+ GET /media/hero-1080.mp4 416 in 13ms
+ GET /music 200 in 71ms
+ GET /favicon.ico?favicon.45db1c09.ico 200 in 233ms
+ GET /about 200 in 50ms
+ GET / 200 in 72ms
+ GET / 200 in 290ms
+ GET /media/hero-4k.webm 416 in 33ms
+ GET /media/hero-4k.mp4 416 in 25ms
+ GET /media/hero-1080.mp4 416 in 29ms

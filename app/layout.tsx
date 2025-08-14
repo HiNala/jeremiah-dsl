@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/react";
 import { bodyText } from "@/components/fonts";
 import BrandAndNav from "@/components/BrandAndNav";
 
@@ -27,7 +26,6 @@ export default function RootLayout({
       <body className={`${inter.variable} ${bodyText.className} antialiased bg-background text-foreground`}>
         <BrandAndNav />
         <main>{children}</main>
-        <Analytics />
       </body>
     </html>
   );

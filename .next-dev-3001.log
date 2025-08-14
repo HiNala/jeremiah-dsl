@@ -1,0 +1,529 @@
+ ⚠ Warning: Found multiple lockfiles. Selecting /Users/alexpermut/package-lock.json.
+   Consider removing the lockfiles at:
+   * /Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/pnpm-lock.yaml
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.100.179:3001
+   - Experiments (use with caution):
+     · serverActions
+
+ ✓ Starting...
+ ✓ Ready in 1284ms
+ ○ Compiling /globe ...
+ ✓ Compiled /globe in 4s (1514 modules)
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET /globe 500 in 4568ms
+ ✓ Compiled /favicon.ico in 443ms (832 modules)
+ GET /favicon.ico 200 in 740ms
+ GET /favicon.ico 200 in 8ms
+ ✓ Compiled / in 429ms (1496 modules)
+ GET / 200 in 547ms
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET / 200 in 15ms
+ GET /globe 500 in 349ms
+ ✓ Compiled /favicon.ico in 319ms (839 modules)
+ GET /favicon.ico 200 in 391ms
+ GET /favicon.ico 200 in 6ms
+ GET / 200 in 77ms
+ GET /favicon.ico 200 in 25ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 960ms (1827 modules)
+ GET / 200 in 443ms
+ GET / 200 in 9ms
+ GET /media/hero-4k.webm 416 in 1351ms
+ GET /media/hero-4k.mp4 416 in 208ms
+ GET /media/hero-1080.mp4 416 in 219ms
+ ✓ Compiled /about in 227ms (1835 modules)
+ GET /about 200 in 286ms
+ GET /favicon.ico 200 in 12ms
+ ✓ Compiled /music in 222ms (1837 modules)
+ GET /music 200 in 271ms
+ GET /favicon.ico 200 in 9ms
+ GET /globe 200 in 34ms
+ GET /favicon.ico 200 in 9ms
+ ○ Compiling /contact ...
+ ✓ Compiled /contact in 1496ms (2102 modules)
+ GET /contact 200 in 1627ms
+ GET /contact 200 in 7ms
+ GET /favicon.ico 200 in 13ms
+ GET /music 200 in 48ms
+ GET /favicon.ico 200 in 8ms
+ GET /about 200 in 35ms
+ GET /favicon.ico 200 in 8ms
+ GET /globe 200 in 33ms
+ GET /favicon.ico 200 in 8ms
+ GET /contact 200 in 24ms
+ GET /favicon.ico 200 in 5ms
+ GET /globe 200 in 23ms
+ GET /favicon.ico 200 in 6ms
+ GET / 200 in 67ms
+ GET /favicon.ico 200 in 6ms
+ GET /media/hero-4k.webm 416 in 283ms
+ GET /media/hero-4k.mp4 416 in 224ms
+ GET /media/hero-1080.mp4 416 in 217ms
+ GET /globe 200 in 56ms
+ GET /favicon.ico 200 in 18ms
+ ✓ Compiled in 1534ms (2006 modules)
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET /globe 200 in 570ms
+ GET /globe 500 in 573ms
+ ✓ Compiled /favicon.ico in 335ms (1121 modules)
+ GET /favicon.ico 200 in 416ms
+ GET /favicon.ico 200 in 3ms
+ ✓ Compiled in 390ms (2023 modules)
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET /globe 200 in 671ms
+ GET /globe 500 in 679ms
+ GET /favicon.ico 200 in 19ms
+ GET /favicon.ico 200 in 3ms
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET /globe 500 in 248ms
+ GET /favicon.ico 200 in 9ms
+ GET /favicon.ico 200 in 5ms
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET /globe 500 in 290ms
+ GET /favicon.ico 200 in 9ms
+ GET /favicon.ico 200 in 8ms
+ ✓ Compiled in 1068ms (2006 modules)
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET /globe 200 in 467ms
+ GET /globe 500 in 468ms
+ ✓ Compiled /favicon.ico in 277ms (1121 modules)
+ GET /favicon.ico 200 in 378ms
+ GET /favicon.ico 200 in 3ms
+ ✓ Compiled in 311ms (2023 modules)
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET /globe 200 in 471ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /globe 500 in 477ms
+ GET /favicon.ico 200 in 55ms
+ GET /favicon.ico 200 in 163ms
+ ⨯ ReferenceError: window is not defined
+    at (ssr)/./node_modules/three-conic-polygon-geometry/dist/three-conic-polygon-geometry.mjs (.next/server/vendor-chunks/three-conic-polygon-geometry.js:20:1)
+    at (ssr)/./node_modules/three-globe/dist/three-globe.mjs (.next/server/vendor-chunks/three-globe.js:20:1)
+    at (ssr)/./node_modules/globe.gl/dist/globe.gl.mjs (.next/server/vendor-chunks/globe.gl.js:20:1)
+    at (ssr)/./node_modules/react-globe.gl/dist/react-globe.gl.mjs (.next/server/vendor-chunks/react-globe.gl.js:20:1)
+    at eval (webpack-internal:///(ssr)/./components/GlobeGl.tsx:9:72)
+    at (ssr)/./components/GlobeGl.tsx (.next/server/app/(site)/globe/page.js:152:1)
+    at eval (webpack-internal:///(ssr)/./app/(site)/globe/page.tsx:7:77)
+    at (ssr)/./app/(site)/globe/page.tsx (.next/server/app/(site)/globe/page.js:141:1) {
+  digest: '3189560291'
+}
+ GET /globe 500 in 278ms
+ GET /favicon.ico 200 in 15ms
+ GET /favicon.ico 200 in 8ms
+ ✓ Compiled in 1334ms (2020 modules)
+ GET /globe 200 in 350ms
+ GET /globe 200 in 352ms
+ ✓ Compiled /favicon.ico in 253ms (1127 modules)
+ GET /favicon.ico 200 in 330ms
+ ✓ Compiled in 324ms (2037 modules)
+ GET /globe 200 in 64ms
+ ✓ Compiled in 406ms (2037 modules)
+ GET /globe 200 in 157ms
+ GET /globe 200 in 162ms
+ GET /favicon.ico 200 in 14ms
+ ✓ Compiled in 571ms (2020 modules)
+ GET /globe 200 in 100ms
+ ✓ Compiled in 347ms (2020 modules)
+ GET /globe 200 in 95ms
+ GET /globe 200 in 186ms
+ ✓ Compiled /favicon.ico in 237ms (1127 modules)
+ GET /favicon.ico 200 in 311ms
+ GET /globe 200 in 295ms
+ GET /favicon.ico 200 in 8ms
+ ✓ Compiled in 687ms (2020 modules)
+ GET /globe 200 in 99ms
+ ✓ Compiled in 314ms (2020 modules)
+ GET /globe 200 in 36ms
+ GET /globe 200 in 152ms
+ ✓ Compiled /favicon.ico in 259ms (1127 modules)
+ GET /favicon.ico 200 in 327ms
+ ✓ Compiled in 504ms (2020 modules)
+ GET /globe 200 in 91ms
+ ✓ Compiled in 461ms (2020 modules)
+ GET /globe 200 in 51ms
+ GET /globe 200 in 142ms
+ ✓ Compiled /favicon.ico in 392ms (1127 modules)
+ GET /favicon.ico 200 in 527ms
+ ✓ Compiled in 591ms (2020 modules)
+ GET /globe 200 in 119ms
+ ✓ Compiled in 237ms (2020 modules)
+ GET /globe 200 in 31ms
+ GET /globe 200 in 404ms
+ ✓ Compiled /favicon.ico in 401ms (1127 modules)
+ GET /favicon.ico 200 in 455ms
+ ✓ Compiled in 477ms (2037 modules)
+ GET /globe 200 in 114ms
+ ✓ Compiled in 367ms (2037 modules)
+ GET /globe 200 in 75ms
+ GET /globe 200 in 229ms
+ GET /favicon.ico 200 in 18ms
+ ✓ Compiled in 843ms (2022 modules)
+ GET /globe 200 in 122ms
+ ✓ Compiled in 481ms (2022 modules)
+ GET /globe 200 in 33ms
+ GET /globe 200 in 204ms
+ ✓ Compiled /favicon.ico in 357ms (1128 modules)
+ GET /favicon.ico 200 in 551ms
+ ⨯ ./components/GlobeGl.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+     ,-[[36;1;4m/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/components/GlobeGl.tsx[0m:231:1]
+ [2m228[0m |       // Recompile overlays when heatmap or textures become ready
+ [2m229[0m |       />
+ [2m230[0m |       {heatReady && (() => { const mat = ref.current?.globeMaterial?.(); if (mat) recompileWithOverlays(mat as THREE.MeshPhongMaterial); })()}
+ [2m231[0m |       />
+     : [35;1m       ^[0m
+ [2m232[0m |     </div>
+ [2m233[0m |   );
+ [2m234[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ ⨯ ./components/GlobeGl.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+     ,-[[36;1;4m/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/components/GlobeGl.tsx[0m:231:1]
+ [2m228[0m |       // Recompile overlays when heatmap or textures become ready
+ [2m229[0m |       />
+ [2m230[0m |       {heatReady && (() => { const mat = ref.current?.globeMaterial?.(); if (mat) recompileWithOverlays(mat as THREE.MeshPhongMaterial); })()}
+ [2m231[0m |       />
+     : [35;1m       ^[0m
+ [2m232[0m |     </div>
+ [2m233[0m |   );
+ [2m234[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ ⨯ ./components/GlobeGl.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+     ,-[[36;1;4m/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/components/GlobeGl.tsx[0m:231:1]
+ [2m228[0m |       // Recompile overlays when heatmap or textures become ready
+ [2m229[0m |       />
+ [2m230[0m |       {heatReady && (() => { const mat = ref.current?.globeMaterial?.(); if (mat) recompileWithOverlays(mat as THREE.MeshPhongMaterial); })()}
+ [2m231[0m |       />
+     : [35;1m       ^[0m
+ [2m232[0m |     </div>
+ [2m233[0m |   );
+ [2m234[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ ○ Compiling /_error ...
+ GET /globe 500 in 2016ms
+ ⨯ ./components/GlobeGl.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+     ,-[[36;1;4m/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/components/GlobeGl.tsx[0m:231:1]
+ [2m228[0m |       // Recompile overlays when heatmap or textures become ready
+ [2m229[0m |       />
+ [2m230[0m |       {heatReady && (() => { const mat = ref.current?.globeMaterial?.(); if (mat) recompileWithOverlays(mat as THREE.MeshPhongMaterial); })()}
+ [2m231[0m |       />
+     : [35;1m       ^[0m
+ [2m232[0m |     </div>
+ [2m233[0m |   );
+ [2m234[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ GET /favicon.ico 500 in 105ms
+ ⨯ ./components/GlobeGl.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+     ,-[[36;1;4m/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/components/GlobeGl.tsx[0m:236:1]
+ [2m233[0m |         }}
+ [2m234[0m | 
+ [2m235[0m |       />
+ [2m236[0m |       />
+     : [35;1m       ^[0m
+ [2m237[0m |     </div>
+ [2m238[0m |   );
+ [2m239[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ ⨯ ./components/GlobeGl.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+     ,-[[36;1;4m/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/components/GlobeGl.tsx[0m:236:1]
+ [2m233[0m |         }}
+ [2m234[0m | 
+ [2m235[0m |       />
+ [2m236[0m |       />
+     : [35;1m       ^[0m
+ [2m237[0m |     </div>
+ [2m238[0m |   );
+ [2m239[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ GET /globe 500 in 39ms
+ ⨯ ./components/GlobeGl.tsx
+Error:   [31mx[0m Unexpected token. Did you mean `{'>'}` or `&gt;`?
+     ,-[[36;1;4m/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/components/GlobeGl.tsx[0m:236:1]
+ [2m233[0m |         }}
+ [2m234[0m | 
+ [2m235[0m |       />
+ [2m236[0m |       />
+     : [35;1m       ^[0m
+ [2m237[0m |     </div>
+ [2m238[0m |   );
+ [2m239[0m | }
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ GET /favicon.ico 500 in 138ms
+ GET /globe 500 in 16ms
+ GET /favicon.ico 500 in 4ms
+ GET /globe 500 in 13ms
+ GET /favicon.ico 500 in 4ms
+ GET /globe 500 in 15ms
+ GET /favicon.ico 500 in 2ms
+ GET /globe 500 in 38ms
+ GET /favicon.ico 500 in 2ms
+ ✓ Compiled /favicon.ico in 1593ms (2126 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /globe 200 in 286ms
+ ✓ Compiled /_not-found in 458ms (2117 modules)
+ GET /favicon.ico 200 in 14ms
+ ✓ Compiled in 377ms (2131 modules)
+ GET /globe 200 in 36ms
+ GET /globe 200 in 217ms
+ GET /favicon.ico 200 in 10ms
+ ✓ Compiled in 445ms (2126 modules)
+ GET /globe 200 in 87ms
+ ✓ Compiled in 345ms (2109 modules)
+ GET /globe 200 in 106ms
+ ✓ Compiled in 806ms (2109 modules)
+ GET /globe 200 in 129ms
+ ✓ Compiled in 571ms (2109 modules)
+ GET /globe 200 in 53ms
+ GET /globe 200 in 411ms
+ ✓ Compiled /favicon.ico in 372ms (1214 modules)
+ GET /favicon.ico 200 in 540ms
+ ✓ Compiled in 655ms (2109 modules)
+ GET /globe 200 in 162ms
+ ✓ Compiled in 546ms (2109 modules)
+ GET /globe 200 in 39ms
+ GET /globe 200 in 203ms
+ ✓ Compiled /favicon.ico in 173ms (1214 modules)
+ GET /favicon.ico 200 in 237ms
+ ✓ Compiled in 598ms (2109 modules)
+ GET /globe 200 in 91ms
+ ✓ Compiled in 546ms (2109 modules)
+ GET /globe 200 in 45ms
+ GET /globe 200 in 188ms
+ ✓ Compiled /favicon.ico in 308ms (1214 modules)
+ GET /favicon.ico 200 in 422ms
+ ✓ Compiled in 730ms (2109 modules)
+ GET /globe 200 in 93ms
+ ✓ Compiled in 498ms (2109 modules)
+ GET /globe 200 in 35ms
+ GET /globe 200 in 157ms
+ ✓ Compiled /favicon.ico in 289ms (1214 modules)
+ GET /favicon.ico 200 in 421ms
+ GET /globe 200 in 231ms
+ GET /favicon.ico 200 in 5ms
+ ✓ Compiled in 850ms (2109 modules)
+ GET /globe 200 in 110ms
+ ✓ Compiled in 595ms (2109 modules)
+ GET /globe 200 in 33ms
+ GET /globe 200 in 152ms
+ ✓ Compiled /favicon.ico in 212ms (1214 modules)
+ GET /favicon.ico 200 in 259ms
+ GET /globe 200 in 194ms
+ GET /favicon.ico 200 in 10ms
+ ⨯ ./components/GlobeGl.tsx:11:29
+Module not found: Can't resolve 'react-globe.gl'
+   9 |
+  10 | // Dynamic import to avoid SSR "window is not defined" from three-globe/react-globe.gl
+> 11 | const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
+     |                             ^
+  12 |
+  13 | export type GlobeGlProps = {
+  14 |   initial?: Registration[];
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./app/(site)/globe/page.tsx
+ ⨯ ./components/GlobeGl.tsx:11:29
+Module not found: Can't resolve 'react-globe.gl'
+   9 |
+  10 | // Dynamic import to avoid SSR "window is not defined" from three-globe/react-globe.gl
+> 11 | const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
+     |                             ^
+  12 |
+  13 | export type GlobeGlProps = {
+  14 |   initial?: Registration[];
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./app/(site)/globe/page.tsx
+ ⨯ ./components/GlobeGl.tsx:11:29
+Module not found: Can't resolve 'react-globe.gl'
+   9 |
+  10 | // Dynamic import to avoid SSR "window is not defined" from three-globe/react-globe.gl
+> 11 | const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
+     |                             ^
+  12 |
+  13 | export type GlobeGlProps = {
+  14 |   initial?: Registration[];
+
+https://nextjs.org/docs/messages/module-not-found
+
+Import trace for requested module:
+./app/(site)/globe/page.tsx
+ ⨯ ./node_modules/three-render-objects/dist/three-render-objects.mjs
+Error: ENOENT: no such file or directory, open '/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/node_modules/three-render-objects/dist/three-render-objects.mjs'
+
+Import trace for requested module:
+./node_modules/three-render-objects/dist/three-render-objects.mjs
+./node_modules/globe.gl/dist/globe.gl.mjs
+./node_modules/react-globe.gl/dist/react-globe.gl.mjs
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ GET /globe 500 in 31ms
+ ⨯ ./node_modules/three-render-objects/dist/three-render-objects.mjs
+Error: ENOENT: no such file or directory, open '/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/node_modules/three-render-objects/dist/three-render-objects.mjs'
+
+Import trace for requested module:
+./node_modules/three-render-objects/dist/three-render-objects.mjs
+./node_modules/globe.gl/dist/globe.gl.mjs
+./node_modules/react-globe.gl/dist/react-globe.gl.mjs
+./components/GlobeGl.tsx
+./app/(site)/globe/page.tsx
+ ○ Compiling /favicon.ico ...
+ GET /favicon.ico 500 in 517ms
+ ⨯ ./node_modules/@vercel/analytics/dist/react/index.mjs
+Error: ENOENT: no such file or directory, open '/Users/alexpermut/JeremiahMillerCursor/jeremiah-miller/node_modules/@vercel/analytics/dist/react/index.mjs'
+
+Import trace for requested module:
+./node_modules/@vercel/analytics/dist/react/index.mjs
+./app/layout.tsx
+ GET /_next/static/webpack/28096facdc999152.webpack.hot-update.json 500 in 766ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /globe 500 in 29ms
+ GET /favicon.ico 500 in 5ms
+ ✓ Compiled /_not-found in 1132ms (1925 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /globe 200 in 204ms
+ GET /_next/static/webpack/28096facdc999152.webpack.hot-update.json 404 in 1529ms
+ GET /globe 200 in 26ms
+ ✓ Compiled /favicon.ico in 257ms (1099 modules)
+ GET /favicon.ico 200 in 422ms
+ ✓ Compiled in 637ms (1956 modules)
+ GET /globe 200 in 99ms
