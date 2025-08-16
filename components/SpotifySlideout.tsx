@@ -28,6 +28,7 @@ export default function SpotifySlideout() {
   }, [visible, tracks]);
 
   const currentTrack = useMemo(() => (tracks && tracks[currentIndex]) || null, [tracks, currentIndex]);
+  const hasPreview = Boolean(currentTrack?.previewUrl);
 
   function nextTrack() {
     if (!tracks || tracks.length === 0) return;
@@ -110,28 +111,36 @@ export default function SpotifySlideout() {
             </div>
             <div className="relative hidden group-hover/he:block mt-1 px-4 pb-3">
               <div className="flex items-center gap-3">
-                <button aria-label="Previous" onClick={prevTrack} className="p-2 rounded hover:bg-zinc-100">
+                <button aria-label="Previous" onClick={prevTrack} className="p-2 rounded hover:bg-zinc-100" disabled={!tracks || tracks.length === 0}>
                   ◀︎
                 </button>
                 <button
                   aria-label="Play/Pause"
                   onClick={() => {
                     const a = audioRef.current;
+                    if (!hasPreview) {
+                      const target = currentTrack?.externalUrl || ARTIST_SPOTIFY_URL;
+                      window.open(target, "_blank");
+                      return;
+                    }
                     if (!a) return;
                     if (a.paused) a.play().catch(() => {});
                     else a.pause();
                   }}
-                  className="p-2 rounded bg-accent text-black px-3"
+                  className={`p-2 rounded px-3 ${hasPreview ? "bg-accent text-black" : "bg-[#1DB954] text-black"}`}
                 >
                   ▶︎
                 </button>
-                <button aria-label="Next" onClick={nextTrack} className="p-2 rounded hover:bg-zinc-100">
+                <button aria-label="Next" onClick={nextTrack} className="p-2 rounded hover:bg-zinc-100" disabled={!tracks || tracks.length === 0}>
                   ▶︎
                 </button>
                 <Link href={currentTrack?.externalUrl || ARTIST_SPOTIFY_URL} target="_blank" className="ml-auto text-sm underline">
                   Open in Spotify
                 </Link>
               </div>
+              {!hasPreview && (
+                <p className="mt-2 text-xs text-zinc-500">Preview unavailable here. Use “Open in Spotify” for full playback.</p>
+              )}
               <audio ref={audioRef} preload="none" />
             </div>
           </div>
