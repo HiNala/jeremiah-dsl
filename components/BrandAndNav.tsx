@@ -4,8 +4,8 @@ import { rockSalt } from "@/components/fonts";
 export default function BrandAndNav() {
   return (
     <>
-      <div className="fixed top-6 left-6 z-50">
-        <Link href="/" className={`${rockSalt.className} text-2xl md:text-3xl tracking-tight`}>
+      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+        <Link href="/" className={`${rockSalt.className} text-4xl md:text-6xl tracking-tight`}>
           Jeremiah Miller
         </Link>
       </div>
