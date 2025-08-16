@@ -12,6 +12,7 @@ export default function VideoHero() {
         loop
         poster="/media/hero-poster.jpg"
       >
+        <source src="https://j-miller.s3.us-west-1.amazonaws.com/Jeremiah+BeachCompressed.mp4" type="video/mp4" />
         <source src="/media/hero-4k.webm" type="video/webm" />
         <source src="/media/hero-4k.mp4" type="video/mp4" />
         <source src="/media/hero-1080.mp4" type="video/mp4" />
