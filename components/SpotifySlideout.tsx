@@ -45,9 +45,9 @@ export default function SpotifySlideout() {
             </svg>
             <div className="absolute z-10 w-8 h-8 bg-white border-4 rounded-full shadow-sm border-zinc-400 top-12 left-12" />
           </div>
-          <div className="z-30 flex flex-col w-40 h-20 transition-all duration-300 bg-white shadow-md group-hover/he:h-40 group-hover/he:w-80 rounded-2xl shadow-zinc-400">
-            <div className="flex flex-row w-full h-0 group-hover/he:h-20">
-              <div className="relative flex items-center justify-center w-24 h-24 group-hover/he:-top-6 group-hover/he:-left-4 opacity-0 group-hover/he:animate-[spin_3s_linear_infinite] group-hover/he:opacity-100 transition-all duration-100">
+          <div className="z-30 flex flex-col w-40 h-20 transition-all duration-300 bg-white shadow-md group-hover/he:h-[220px] group-hover/he:w-[380px] rounded-2xl shadow-zinc-400 overflow-visible">
+            <div className="flex flex-row w-full h-0 group-hover/he:h-16">
+              <div className="relative flex items-center justify-center w-24 h-24 group-hover/he:-top-8 group-hover/he:-left-4 opacity-0 group-hover/he:animate-[spin_3s_linear_infinite] group-hover/he:opacity-100 transition-all duration-100">
                 <svg width={96} height={96} viewBox="0 0 128 128" className="duration-500 border-4 rounded-full shadow-md border-zinc-400 border-spacing-5">
                   <svg>
                     <rect width={128} height={128} fill="black" />
@@ -68,15 +68,13 @@ export default function SpotifySlideout() {
                 </svg>
                 <div className="absolute z-10 w-6 h-6 bg-white border-4 rounded-full shadow-sm border-zinc-400 top-9 left-9" />
               </div>
-              <div className="flex flex-col justify-center w-full pl-3 -ml-24 overflow-hidden group-hover/he:-ml-3 text-nowrap">
-                <p className="text-xl font-bold text-black">FLY</p>
-                <p className="text-zinc-700">Jeremiah Miller</p>
-              </div>
+              {/* Intentionally no title/artist text here to avoid duplication with the embed */}
+              <div className="flex-1" />
             </div>
             {/* In-page Spotify embed for the specific track */}
-            <div className="mx-3 mb-3 mt-2 overflow-hidden rounded-md">
+            <div className="mx-3 mb-3 mt-2 overflow-hidden rounded-md group-hover/he:block hidden">
               <iframe
-                className="w-full h-[80px]"
+                className="w-full h-[152px]"
                 src={SPOTIFY_TRACK_EMBED}
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"

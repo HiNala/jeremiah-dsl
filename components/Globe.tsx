@@ -3,9 +3,12 @@
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { latLonToVector3 } from "@/lib/geo";
 import { addSplat, createHeatmapCanvas } from "@/lib/heatmap";
+import { createHeatOverlay } from "@/lib/heatOverlay";
+import { demoFans, type CityFan } from "@/data/fans";
+import fansToPoints from "@/lib/fansToPoints";
 
 export type Registration = { lat: number; lon: number };
 export type GlobeProps = {
@@ -20,8 +23,10 @@ type EarthProps = {
   normalMap: THREE.Texture | null;
 };
 
-function Earth({ heatmap, colorMap, normalMap }: EarthProps) {
-  const sphereRef = useRef<THREE.Mesh>(null);
+const Earth = React.forwardRef<THREE.Mesh, EarthProps>(function Earth(
+  { heatmap, colorMap, normalMap }: EarthProps,
+  sphereRef
+) {
 
   // Custom shader that multiplies color map by heatmap intensity
   const uniforms = useMemo(() => ({
@@ -69,7 +74,7 @@ function Earth({ heatmap, colorMap, normalMap }: EarthProps) {
   // If no colorMap available, fallback to standard lambert to remain robust
   if (!colorMap) {
     return (
-      <mesh ref={sphereRef} frustumCulled={false}>
+      <mesh ref={sphereRef as React.RefObject<THREE.Mesh>} frustumCulled={false}>
         <sphereGeometry args={[1, 128, 128]} />
         <meshLambertMaterial color={new THREE.Color(0.25, 0.35, 0.5)} />
       </mesh>
@@ -77,7 +82,7 @@ function Earth({ heatmap, colorMap, normalMap }: EarthProps) {
   }
 
   return (
-    <mesh ref={sphereRef} frustumCulled={false}>
+    <mesh ref={sphereRef as React.RefObject<THREE.Mesh>} frustumCulled={false}>
       <sphereGeometry args={[1, 128, 128]} />
       <shaderMaterial
         key={String(Boolean(colorMap)) + String(Boolean(heatmap))}
@@ -88,7 +93,7 @@ function Earth({ heatmap, colorMap, normalMap }: EarthProps) {
       {normalMap ? <meshStandardMaterial attach="material-1" normalMap={normalMap} /> : null}
     </mesh>
   );
-}
+});
 
 function Pins({ pins }: { pins: Registration[] }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
@@ -244,10 +249,12 @@ function useEarthTextures(maxAniso: number) {
 
 function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
   const groupRef = useRef<THREE.Group>(null);
+  const earthRef = useRef<THREE.Mesh>(null);
   const heatmap = useHeatmapTexture(heatmapPoints);
   const { gl, camera } = useThree();
   const maxAniso = gl.capabilities.getMaxAnisotropy?.() ?? 1;
   const { color, normal } = useEarthTextures(maxAniso);
+  const overlayRef = useRef<ReturnType<typeof createHeatOverlay> | null>(null);
 
   // Auto-rotate when idle, pause if controls are active
   const isInteractingRef = useRef(false);
@@ -262,11 +269,37 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
     }
   });
 
+  // Initialize heat overlay on top of earth once we have the mesh
+  useEffect(() => {
+    if (!groupRef.current || overlayRef.current) return;
+    const earth = earthRef.current;
+    if (!earth) return;
+    const geom = earth.geometry as THREE.SphereGeometry;
+    // Attempt to detect radius from geometry parameters (fallback 1)
+    // @ts-expect-error - parameters is present on SphereGeometry
+    const radius: number = geom?.parameters?.radius ?? 1;
+    const overlay = createHeatOverlay({ radius, sigmaDeg: 3, heightScale: 0.08 });
+    overlay.mesh.renderOrder = (earth.renderOrder || 0) + 1;
+    groupRef.current.add(overlay.mesh);
+    overlayRef.current = overlay;
+    overlayHandle = overlay;
+    // Seed with demo data
+    overlay.setPoints(fansToPoints(demoFans));
+
+    // Bind updater
+    updateFans = (newFans: CityFan[]) => {
+      const { mergeFans } = require("@/lib/fansToPoints");
+      const merged = mergeFans(newFans);
+      const pts = (require("@/lib/fansToPoints").default as typeof import("@/lib/fansToPoints").default)(merged);
+      overlay.setPoints(pts);
+    };
+  }, [color]);
+
   return (
     <group ref={groupRef}>
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 3, 5]} intensity={1.2} />
-      <Earth heatmap={heatmap} colorMap={color} normalMap={normal} />
+      <Earth ref={earthRef} heatmap={heatmap} colorMap={color} normalMap={normal} />
       <Pins pins={pins} />
     </group>
   );
@@ -286,5 +319,22 @@ export default function GlobeCanvas({ pins, heatmapPoints, autoRotate = true }: 
     </Canvas>
   );
 }
+
+// Exposed function to update fans from anywhere (e.g., form submit)
+export let updateFans: (newFans: CityFan[]) => void = () => {};
+
+// Bind updateFans to the overlay instance when SceneContent mounts
+let overlayHandle: ReturnType<typeof createHeatOverlay> | null = null;
+updateFans = (newFans: CityFan[]) => {
+  try {
+    if (!overlayHandle) return;
+    const { mergeFans } = require("@/lib/fansToPoints");
+    const merged = mergeFans(newFans);
+    const pts = (require("@/lib/fansToPoints").default as typeof import("@/lib/fansToPoints").default)(merged);
+    overlayHandle.setPoints(pts);
+  } catch {
+    // no-op; keep robust in SSR/build
+  }
+};
 
 
