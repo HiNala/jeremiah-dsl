@@ -40,6 +40,18 @@ Place assets under `public/media`:
 - `GET /api/heatmap` – returns `{ points: HeatPoint[] }`
 - `POST /api/heatmap` – add a point `{ lat, lon, intensity }`
 
+## Globe Heat Overlay (dev controls)
+- Shader-based bumps overlay lives in `lib/heatOverlay.ts` and is integrated in `components/Globe.tsx`.
+- Tweak at runtime via the floating `HeatOverlayControls` panel:
+  - sigmaDeg (1–8)
+  - heightScale (0.02–0.15)
+  - minAlpha (threshold for fragment alpha)
+  - blending: Normal | Additive
+  - visible toggle and Bars mode (instanced cylinders via `lib/cityBars.ts`).
+- Update points with `updateFans(newFans)` which merges by (lat,lon), normalizes `amp = pow(fans / max, 0.7)` and refreshes uniforms.
+
+Performance notes: a few dozen cities render well. If you plan to exceed ~1k cities, switch to a render-to-texture heatmap pipeline (TODO).
+
 ## Server Action
 `submitContact` validates with Zod, stores submission in-memory, and posts a heatmap update. Replace in-memory storage with a database or email service later.
 

@@ -20,6 +20,8 @@ export type HeatOverlayOpts = {
   maxPoints?: number;
   /** Small offset so overlay sits above the globe surface. Defaults to 0.002. */
   offset?: number;
+  /** Minimum alpha threshold for visibility in fragment shader (default 0.02). */
+  minAlpha?: number;
 };
 
 /** Convert latitude/longitude (degrees) to a unit vector in Three.js coordinates (Y-up). */
@@ -63,6 +65,7 @@ export function createHeatOverlay(opts: HeatOverlayOpts): HeatOverlayHandle {
   const heightScale =
     opts.heightScale ?? Math.max(1e-6, DEFAULTS.heightScaleMul * radius);
   const offset = opts.offset ?? DEFAULTS.offset;
+  const minAlpha = opts.minAlpha ?? 0.02;
 
   // Geometry – dense sphere (segments only impact smoothness, not radius in shader)
   const geometry = new THREE.SphereGeometry(radius + offset, 256, 256);
@@ -83,6 +86,7 @@ export function createHeatOverlay(opts: HeatOverlayOpts): HeatOverlayHandle {
     uCount: { value: 0 },
     uCenters: { value: centers },
     uAmps: { value: amps },
+    uMinAlpha: { value: minAlpha },
   };
 
   // Vertex shader: displace by sum of Gaussian bumps
@@ -125,6 +129,7 @@ export function createHeatOverlay(opts: HeatOverlayOpts): HeatOverlayHandle {
   // Fragment shader: color ramp blue->cyan->yellow->red, alpha from intensity
   const fragmentShader = /* glsl */ `
     precision highp float;
+    uniform float uMinAlpha;
     varying float vIntensity;
 
     vec3 ramp(float t) {
@@ -146,7 +151,7 @@ export function createHeatOverlay(opts: HeatOverlayOpts): HeatOverlayHandle {
     }
 
     void main() {
-      float alpha = smoothstep(0.02, 0.10, vIntensity);
+      float alpha = smoothstep(uMinAlpha, uMinAlpha * 5.0, vIntensity);
       if (alpha <= 0.0) discard;
       vec3 color = ramp(min(1.0, vIntensity));
       gl_FragColor = vec4(color, alpha);
@@ -194,6 +199,9 @@ export function createHeatOverlay(opts: HeatOverlayOpts): HeatOverlayHandle {
     }
     if (p.heightScale !== undefined) {
       material.uniforms.uHeightScale.value = p.heightScale;
+    }
+    if (p.minAlpha !== undefined) {
+      material.uniforms.uMinAlpha.value = Math.max(0, p.minAlpha);
     }
   }
 

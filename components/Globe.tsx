@@ -9,6 +9,8 @@ import { addSplat, createHeatmapCanvas } from "@/lib/heatmap";
 import { createHeatOverlay } from "@/lib/heatOverlay";
 import { demoFans, type CityFan } from "@/data/fans";
 import fansToPoints from "@/lib/fansToPoints";
+import createCityBars from "@/lib/cityBars";
+import HeatOverlayControls from "@/components/HeatOverlayControls";
 
 export type Registration = { lat: number; lon: number };
 export type GlobeProps = {
@@ -255,6 +257,7 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
   const maxAniso = gl.capabilities.getMaxAnisotropy?.() ?? 1;
   const { color, normal } = useEarthTextures(maxAniso);
   const overlayRef = useRef<ReturnType<typeof createHeatOverlay> | null>(null);
+  const barsRef = useRef<ReturnType<typeof createCityBars> | null>(null);
 
   // Auto-rotate when idle, pause if controls are active
   const isInteractingRef = useRef(false);
@@ -293,6 +296,14 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
       const pts = (require("@/lib/fansToPoints").default as typeof import("@/lib/fansToPoints").default)(merged);
       overlay.setPoints(pts);
     };
+
+    // Bars mode setup
+    const bars = createCityBars(radius, 0.35);
+    bars.mesh.renderOrder = (earth.renderOrder || 0) + 1;
+    bars.mesh.visible = false;
+    groupRef.current.add(bars.mesh);
+    bars.setPoints(fansToPoints(demoFans));
+    barsRef.current = bars;
   }, [color]);
 
   return (
@@ -301,6 +312,10 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
       <directionalLight position={[5, 3, 5]} intensity={1.2} />
       <Earth ref={earthRef} heatmap={heatmap} colorMap={color} normalMap={normal} />
       <Pins pins={pins} />
+      <HeatOverlayControls
+        getOverlay={() => overlayRef.current}
+        getBars={() => barsRef.current}
+      />
     </group>
   );
 }
