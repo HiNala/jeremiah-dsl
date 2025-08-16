@@ -17,7 +17,11 @@ export default function VideoHero() {
         <source src="/media/hero-4k.mp4" type="video/mp4" />
         <source src="/media/hero-1080.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" aria-hidden />
+      {/* Landscape oval vignette with heavy feathering */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(65%_45%_at_50%_50%,_rgba(0,0,0,0)_55%,_rgba(0,0,0,0.35)_78%,_rgba(0,0,0,0.65)_90%,_rgba(0,0,0,0.88)_100%)]"
+        aria-hidden
+      />
       <SpotifySlideout />
     </section>
   );
