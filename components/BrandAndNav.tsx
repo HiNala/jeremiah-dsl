@@ -3,29 +3,23 @@ import { rockSalt } from "@/components/fonts";
 
 export default function BrandAndNav() {
   return (
-    <>
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-        <Link href="/" className={`${rockSalt.className} text-4xl md:text-6xl tracking-tight`}>
-          Jeremiah Miller
-        </Link>
+    <div className="fixed top-4 left-0 right-0 z-50">
+      <div className="w-full px-8 md:px-16">
+        <div className="flex items-center justify-between h-12 md:h-14">
+          {/* All nav items with equal spacing */}
+          <Link className="font-sans text-base md:text-lg font-normal text-white/90 tracking-wide hover:text-white transition-colors duration-200" href="/about">About</Link>
+          
+          <Link className="font-sans text-base md:text-lg font-normal text-white/90 tracking-wide hover:text-white transition-colors duration-200" href="/globe">Globe</Link>
+          
+          {/* Center brand (smaller size) */}
+          <Link href="/" className={`${rockSalt.className} text-2xl md:text-3xl tracking-tight text-white`}>Jeremiah Miller</Link>
+          
+          <Link className="font-sans text-base md:text-lg font-normal text-white/90 tracking-wide hover:text-white transition-colors duration-200" href="/music">Music</Link>
+          
+          <Link className="font-sans text-base md:text-lg font-normal text-white/90 tracking-wide hover:text-white transition-colors duration-200" href="/contact">Contact</Link>
+        </div>
       </div>
-      <nav className="fixed bottom-8 right-8 z-50">
-        <ul className="flex flex-col gap-5 text-lg md:text-xl text-foreground/90">
-          <li>
-            <Link className="hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-4 py-2.5" href="/about">- About</Link>
-          </li>
-          <li>
-            <Link className="hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-4 py-2.5" href="/music">- Music</Link>
-          </li>
-          <li>
-            <Link className="hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-4 py-2.5" href="/globe">- Globe</Link>
-          </li>
-          <li>
-            <Link className="hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-4 py-2.5" href="/contact">- Contact</Link>
-          </li>
-        </ul>
-      </nav>
-    </>
+    </div>
   );
 }
 
