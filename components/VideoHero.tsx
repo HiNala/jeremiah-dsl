@@ -17,9 +17,9 @@ export default function VideoHero() {
         <source src="/media/hero-4k.mp4" type="video/mp4" />
         <source src="/media/hero-1080.mp4" type="video/mp4" />
       </video>
-      {/* Subtle landscape oval vignette with very light feathering */}
+      {/* Softer, even circular vignette with long feather */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(65%_45%_at_50%_50%,_rgba(0,0,0,0)_62%,_rgba(0,0,0,0.06)_80%,_rgba(0,0,0,0.12)_92%,_rgba(0,0,0,0.16)_100%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(0,0,0,0)_54%,_rgba(0,0,0,0.04)_70%,_rgba(0,0,0,0.08)_82%,_rgba(0,0,0,0.12)_92%,_rgba(0,0,0,0.16)_100%)]"
         aria-hidden
       />
       <SpotifySlideout />
