@@ -5,11 +5,11 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="h-screen bg-white overflow-hidden">
-      {/* Top section - Black hero area (larger proportion) */}
-      <div className="h-[60%] bg-black flex items-center justify-center pt-16">
-        <div className="text-center text-white px-8">
-          <p className="text-lg md:text-xl font-light leading-relaxed max-w-4xl mx-auto text-white/90">
+    <div className="min-h-screen bg-white overflow-hidden">
+      {/* Top section - Black hero area (responsive proportion) */}
+      <div className="h-[65%] sm:h-[60%] bg-black flex items-center justify-center pt-12 sm:pt-16">
+        <div className="text-center text-white px-4 sm:px-8">
+          <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-4xl mx-auto text-white/90">
             At Jeremiah Miller Music, we focus on building strong connections that drive growth 
             and opportunity. Through heartfelt performances, we identify and develop moments 
             with the potential for lasting success. By fostering key relationships and leveraging 
@@ -18,10 +18,10 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Bottom section - Split layout (smaller proportion) */}
-      <div className="h-[40%] grid grid-cols-2">
-        {/* Left: Real greyscale city image - more visible */}
-        <div className="bg-gray-900 relative overflow-hidden">
+      {/* Bottom section - Responsive layout (smaller proportion) */}
+      <div className="h-[35%] sm:h-[40%] grid grid-cols-1 sm:grid-cols-2">
+        {/* Left: Real greyscale city image - mobile responsive */}
+        <div className="bg-gray-900 relative overflow-hidden h-32 sm:h-full">
           <img 
             src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=800&fit=crop&crop=center&auto=format&q=90"
             alt="City skyline"

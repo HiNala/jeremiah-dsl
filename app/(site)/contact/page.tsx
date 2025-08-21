@@ -5,16 +5,16 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="h-screen bg-black text-white overflow-hidden">
-      <div className="h-full pt-20 px-6">
-        {/* Main container - fits perfectly on screen */}
-        <div className="h-full flex items-center justify-center">
-          <div className="w-full max-w-5xl grid md:grid-cols-2 gap-8 items-center">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      <div className="pt-16 sm:pt-20 px-4 sm:px-6 pb-8">
+        {/* Main container - mobile responsive */}
+        <div className="flex items-center justify-center min-h-[calc(100vh-8rem)]">
+          <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
             
             {/* Left: Contact info and details */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6 order-2 md:order-1">
               <div>
-                <h1 className="text-3xl md:text-4xl font-light tracking-wide mb-4 text-white">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-light tracking-wide mb-3 sm:mb-4 text-white">
                   Invite Jeremiah to Perform
                 </h1>
                 <p className="text-base text-gray-300 font-light leading-relaxed">
@@ -46,9 +46,9 @@ export default function ContactPage() {
             </div>
 
             {/* Right: Compact contact form */}
-            <div className="bg-white p-6 shadow-2xl">
-              <form className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white p-4 sm:p-6 shadow-2xl order-1 md:order-2">
+              <form className="space-y-3 sm:space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label htmlFor="name" className="block text-xs font-medium text-gray-700 mb-1">
                       Name
@@ -75,7 +75,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label htmlFor="phone" className="block text-xs font-medium text-gray-700 mb-1">
                       Phone

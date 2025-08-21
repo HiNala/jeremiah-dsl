@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, MoreVertical, Play, Volume2, VolumeX, X } from "lucide-react";
 
@@ -55,6 +55,24 @@ export default function YouTubeShortsGallery() {
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
   const [modalVideo, setModalVideo] = useState<string | null>(null);
   const [unmutedVideo, setUnmutedVideo] = useState<string | null>(null);
+  const [videosPerPage, setVideosPerPage] = useState(5);
+
+  // Update videos per page based on screen size
+  useEffect(() => {
+    const updateVideosPerPage = () => {
+      if (window.innerWidth < 640) {
+        setVideosPerPage(2); // Mobile
+      } else if (window.innerWidth < 1024) {
+        setVideosPerPage(3); // Tablet
+      } else {
+        setVideosPerPage(5); // Desktop
+      }
+    };
+
+    updateVideosPerPage();
+    window.addEventListener('resize', updateVideosPerPage);
+    return () => window.removeEventListener('resize', updateVideosPerPage);
+  }, []);
 
   const scrollLeft = () => {
     const newIndex = currentIndex > 0 ? currentIndex - 1 : 0;
@@ -62,7 +80,7 @@ export default function YouTubeShortsGallery() {
   };
 
   const scrollRight = () => {
-    const maxIndex = Math.max(0, YOUTUBE_VIDEOS.length - 5);
+    const maxIndex = Math.max(0, YOUTUBE_VIDEOS.length - videosPerPage);
     const newIndex = currentIndex < maxIndex ? currentIndex + 1 : maxIndex;
     setCurrentIndex(newIndex);
   };
@@ -81,29 +99,30 @@ export default function YouTubeShortsGallery() {
 
   return (
     <div className="w-full h-screen bg-black text-white overflow-hidden">
-      <div className="h-full pt-20 px-4 md:px-8 flex items-center justify-center relative">
-        <div className="flex items-center justify-center gap-4 max-w-7xl mx-auto">
-          {/* Left chevron (always present for consistent spacing) */}
-          <div className="flex-shrink-0 w-10 flex justify-center">
+      <div className="h-full pt-16 sm:pt-20 px-2 sm:px-4 md:px-8 flex items-center justify-center relative">
+        <div className="flex items-center justify-center gap-2 sm:gap-4 max-w-7xl mx-auto w-full">
+          {/* Left chevron (responsive sizing) */}
+          <div className="flex-shrink-0 w-8 sm:w-10 flex justify-center">
             {currentIndex > 0 ? (
               <button
                 onClick={scrollLeft}
                 className="text-white hover:text-gray-300 transition-colors duration-200"
                 aria-label="Previous videos"
               >
-                <ChevronLeft size={40} />
+                <ChevronLeft size={32} className="sm:w-10 sm:h-10" />
               </button>
             ) : (
-              <div className="w-10 h-10" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10" />
             )}
           </div>
 
-          {/* Five video cards centered */}
-          <div className="flex justify-center gap-4 overflow-hidden">
-          {YOUTUBE_VIDEOS.slice(currentIndex, currentIndex + 5).map((video, index) => (
+          {/* Video cards - responsive layout */}
+          <div className="flex justify-center gap-2 sm:gap-4 overflow-hidden w-full">
+            {/* Responsive video display */}
+            {YOUTUBE_VIDEOS.slice(currentIndex, currentIndex + videosPerPage).map((video, index) => (
             <motion.div
               key={video.id}
-              className="w-56 bg-gray-900 rounded-2xl overflow-hidden cursor-pointer group relative shadow-2xl border border-gray-800"
+              className="w-40 sm:w-48 md:w-56 bg-gray-900 rounded-2xl overflow-hidden cursor-pointer group relative shadow-2xl border border-gray-800 flex-shrink-0"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
               onHoverStart={() => setHoveredVideo(video.id)}
@@ -171,17 +190,17 @@ export default function YouTubeShortsGallery() {
           </div>
 
           {/* Right chevron (always present for consistent spacing) */}
-          <div className="flex-shrink-0 w-10 flex justify-center">
-            {currentIndex < YOUTUBE_VIDEOS.length - 5 ? (
+          <div className="flex-shrink-0 w-8 sm:w-10 flex justify-center">
+            {currentIndex < YOUTUBE_VIDEOS.length - videosPerPage ? (
               <button
                 onClick={scrollRight}
                 className="text-white hover:text-gray-300 transition-colors duration-200"
                 aria-label="Next videos"
               >
-                <ChevronRight size={40} />
+                <ChevronRight size={32} className="sm:w-10 sm:h-10" />
               </button>
             ) : (
-              <div className="w-10 h-10" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10" />
             )}
           </div>
         </div>

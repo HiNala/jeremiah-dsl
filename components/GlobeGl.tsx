@@ -189,41 +189,25 @@ export default function GlobeGl({ initial = WORLD_SEED, autoRotate = true, maxPo
   return (
     <div className="h-screen w-full bg-black">
       <Globe
-        ref={(g) => (ref.current = g)}
+        ref={ref as any}
         width={undefined as unknown as number}
         height={undefined as unknown as number}
         backgroundColor={textures.star ? undefined as unknown as string : "rgba(0,0,0,1)"}
         backgroundImageUrl={textures.star}
         globeImageUrl={baseTexture}
         bumpImageUrl={useSeparateBump ? textures.bump : undefined}
-        bumpScale={useSeparateBump ? 1.3 : 0}
         showAtmosphere
         atmosphereAltitude={0.18}
         // pins (disabled)
         pointsData={showPins ? points : []}
-        pointLat={(d: Registration) => d.lat}
-        pointLng={(d: Registration) => d.lon}
+        pointLat={(d: any) => d.lat}
+        pointLng={(d: any) => d.lon}
         pointAltitude={0.0}
         pointRadius={0}
         pointColor={() => "#ffcc66"}
         // hexbin heatmap disabled: use dedicated heatmap layer instead
-        hexBinPointLat={(d: Registration) => d.lat}
-        hexBinPointLng={(d: Registration) => d.lon}
-        hexBinPointsData={[]}
-        hexBinResolution={5}
-        hexBinMerge={true}
-        hexBinColor={() => 'rgba(0,0,0,0)'}
-        hexBinAltitude={() => 0}
-        // heatmap (react-globe.gl)
-        heatmapPointsData={heatmapPoints as any}
-        heatmapPointLat={(d: any) => d.lat}
-        heatmapPointLng={(d: any) => d.lon}
-        heatmapPointWeight={(d: any) => d.weight}
-        heatmapColorScale={["#021435", "#0b3cfc", "#33e1ed", "#fbbf24", "#ff2d00"]}
-        heatmapAltitude={1.1}
-        heatmapRadius={28}
-        // also support alt prop names used in some builds
-        heatmapData={heatmapPoints as any}
+        // heatmap (react-globe.gl) - simplified
+        heatmapsData={heatmapPoints as any}
         // city labels
         labelsData={cities}
         labelLat={(d: any) => d.lat}

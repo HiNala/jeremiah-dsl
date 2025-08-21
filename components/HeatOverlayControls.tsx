@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import * as THREE from "three";
 import type { HeatOverlayOpts } from "@/lib/heatOverlay";
 
 export type HeatOverlayControlsProps = {

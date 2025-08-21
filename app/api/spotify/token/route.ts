@@ -12,13 +12,12 @@ export async function GET() {
 
   try {
     // Reuse the token endpoint via internal call to lib/spotify by importing the function
-    const { default: nodeFetch } = await import("node-fetch");
     const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID || "";
     const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET || "";
     const SPOTIFY_REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN || "";
 
     const creds = Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`, "utf8").toString("base64");
-    const res = await nodeFetch("https://accounts.spotify.com/api/token", {
+    const res = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers: {
         Authorization: `Basic ${creds}`,

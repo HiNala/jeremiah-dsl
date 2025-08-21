@@ -133,7 +133,7 @@ function Pins({ pins }: { pins: Registration[] }) {
   }, [pins, recomputeMatrices]);
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined as unknown as THREE.BufferGeometry, undefined as unknown as THREE.Material, Math.max(1, matrices.length)]} frustumCulled={false}>
+    <instancedMesh ref={meshRef} args={[undefined as unknown as THREE.BufferGeometry, undefined as unknown as THREE.Material, Math.max(1, matricesRef.current?.length || 1)]} frustumCulled={false}>
       <coneGeometry args={[0.02, 0.1, 8]} />
       <meshStandardMaterial color="#ffcc66" emissive="#331a00" />
     </instancedMesh>
@@ -171,7 +171,7 @@ function useHeatmapTexture(points: Registration[]) {
     const tex = ensureTexture();
     if (tex && ctx) {
       const img = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-      (tex.image as { data: Uint8ClampedArray }).data.set(img.data);
+      (tex.image as any).data.set(img.data);
       tex.needsUpdate = true;
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -189,7 +189,7 @@ function useHeatmapTexture(points: Registration[]) {
       const tex = ensureTexture();
       if (tex && ctx) {
         const img = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-        (tex.image as { data: Uint8ClampedArray }).data.set(img.data);
+        (tex.image as any).data.set(img.data);
         tex.needsUpdate = true;
       }
     }
@@ -260,7 +260,6 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
   const barsRef = useRef<ReturnType<typeof createCityBars> | null>(null);
 
   // Auto-rotate when idle, pause if controls are active
-  const isInteractingRef = useRef(false);
 
   useEffect(() => {
     gl.setClearColor(0x0b0b0c, 1);
@@ -278,7 +277,7 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
   }, []);
 
   useFrame((state, delta) => {
-    if (autoRotate && groupRef.current && !isInteractingRef.current) {
+    if (autoRotate && groupRef.current) {
       groupRef.current.rotation.y += delta * 0.1;
     }
   });
@@ -290,8 +289,7 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
     if (!earth) return;
     const geom = earth.geometry as THREE.SphereGeometry;
     // Attempt to detect radius from geometry parameters (fallback 1)
-    // @ts-expect-error - parameters is present on SphereGeometry
-    const radius: number = geom?.parameters?.radius ?? 1;
+    const radius: number = (geom as any)?.parameters?.radius ?? 1;
     const overlay = createHeatOverlay({ radius, sigmaDeg: 3, heightScale: 0.08 });
     overlay.mesh.renderOrder = (earth.renderOrder || 0) + 1;
     groupRef.current.add(overlay.mesh);
@@ -332,6 +330,8 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
 }
 
 export default function GlobeCanvas({ pins, heatmapPoints, autoRotate = true }: GlobeProps) {
+  const isInteractingRef = useRef(false);
+  
   return (
     <Canvas camera={{ position: [0, 0, 3.8], fov: 45 }} dpr={[1, 2]}>
       <SceneContent pins={pins} heatmapPoints={heatmapPoints} autoRotate={autoRotate} />
