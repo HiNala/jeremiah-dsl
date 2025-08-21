@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { bodyText } from "@/components/fonts";
+import { typographyConfig } from "@/config/typography";
 import BrandAndNav from "@/components/BrandAndNav";
 
 const inter = Inter({
@@ -21,9 +22,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const bodyFontClass = typographyConfig.bodyFont === "inter" ? inter.className : bodyText.className;
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${bodyText.className} antialiased bg-background text-foreground`}>
+      <body className={`${inter.variable} ${bodyFontClass} antialiased bg-background text-foreground`}>
         <BrandAndNav />
         <main>{children}</main>
       </body>

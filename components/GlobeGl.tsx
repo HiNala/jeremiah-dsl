@@ -187,7 +187,7 @@ export default function GlobeGl({ initial = WORLD_SEED, autoRotate = true, maxPo
   }, [heatReady, textures, baseTexture, useSeparateBump]);
 
   return (
-    <div className="h-[100dvh] w-full bg-black">
+    <div className="h-screen w-full bg-black">
       <Globe
         ref={(g) => (ref.current = g)}
         width={undefined as unknown as number}
@@ -245,8 +245,8 @@ export default function GlobeGl({ initial = WORLD_SEED, autoRotate = true, maxPo
               controls.minDistance = 150;
               controls.maxDistance = 450;
             }
-            // Start centered on the Americas
-            ref.current?.pointOfView({ lat: 20, lng: -90, altitude: 2.2 }, 1200);
+            // Start centered on the Americas with smaller initial view
+            ref.current?.pointOfView({ lat: 20, lng: -90, altitude: 2.8 }, 1200);
             // Double-assure material bump & overlay blend when ready
             const mat = ref.current?.globeMaterial?.() as THREE.MeshPhongMaterial | undefined;
             if (mat) {

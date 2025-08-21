@@ -266,6 +266,17 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
     gl.setClearColor(0x0b0b0c, 1);
   }, [gl]);
 
+  // Initial orientation: center on North America
+  useEffect(() => {
+    if (!groupRef.current) return;
+    // Rotate so longitude ~ -100°, latitude ~ 20° faces the camera
+    groupRef.current.rotation.set(
+      THREE.MathUtils.degToRad(10),
+      THREE.MathUtils.degToRad(100),
+      0
+    );
+  }, []);
+
   useFrame((state, delta) => {
     if (autoRotate && groupRef.current && !isInteractingRef.current) {
       groupRef.current.rotation.y += delta * 0.1;
@@ -322,12 +333,12 @@ function SceneContent({ pins, heatmapPoints, autoRotate }: GlobeProps) {
 
 export default function GlobeCanvas({ pins, heatmapPoints, autoRotate = true }: GlobeProps) {
   return (
-    <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }} dpr={[1, 2]}>
+    <Canvas camera={{ position: [0, 0, 3.8], fov: 45 }} dpr={[1, 2]}>
       <SceneContent pins={pins} heatmapPoints={heatmapPoints} autoRotate={autoRotate} />
       <OrbitControls
         enablePan={false}
-        minDistance={1.5}
-        maxDistance={4}
+        minDistance={2.5}
+        maxDistance={6}
         onStart={() => (isInteractingRef.current = true)}
         onEnd={() => (isInteractingRef.current = false)}
       />

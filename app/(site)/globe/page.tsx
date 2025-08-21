@@ -12,7 +12,11 @@ import GlobeGl from "@/components/GlobeGl";
 import { WORLD_SEED } from "@/lib/geo";
 
 export default function GlobePage() {
-  return <GlobeGl initial={WORLD_SEED} autoRotate />;
+  return (
+    <div className="overflow-hidden">
+      <GlobeGl initial={WORLD_SEED} autoRotate />
+    </div>
+  );
 }
 
 
