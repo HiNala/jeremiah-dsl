@@ -10,8 +10,10 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     serverActions: {
-      // Adjust for production domain as needed
-      allowedOrigins: ['localhost:3000']
+      // Allow server actions from production domains
+      allowedOrigins: process.env.NODE_ENV === 'production' 
+        ? [process.env.VERCEL_URL || 'jeremiah-miller.vercel.app']
+        : ['localhost:3000']
     }
   }
 }
