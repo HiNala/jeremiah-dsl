@@ -11,7 +11,7 @@ export async function GET() {
   }
 
   try {
-    // Reuse the token endpoint via internal call to lib/spotify by importing the function
+    // Use the built-in fetch available in Next.js/Node 18+ runtime
     const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID || "";
     const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET || "";
     const SPOTIFY_REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN || "";
