@@ -1,4 +1,10 @@
 import * as THREE from "three";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export function latLngToVector3(lat: number, lng: number, radius = 1): THREE.Vector3 {
   const phi = (90 - lat) * (Math.PI / 180);

@@ -103,3 +103,4 @@ After deployment:
 - Vercel provides built-in analytics
 - Function logs available in Vercel dashboard
 - Check Spotify API limits if using music features heavily
+

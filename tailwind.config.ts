@@ -16,6 +16,12 @@ const config: Config = {
         accent: {
           blue: '#2E7DF6',
         },
+        brand: {
+          night: '#0B0E12',
+          text: '#EAEAEA',
+          flame: '#FF5A3D',
+          glow: '#FFD36E',
+        },
       },
       fontFamily: {
         // Will rely on system fonts; swap to next/font when assets decided
