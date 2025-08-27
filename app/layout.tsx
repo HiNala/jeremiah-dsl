@@ -4,6 +4,7 @@ import "./globals.css";
 import { bodyText } from "@/components/fonts";
 import { typographyConfig } from "@/config/typography";
 import BrandAndNav from "@/components/BrandAndNav";
+import SiteFooter from "@/components/layout/SiteFooter";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,9 +26,10 @@ export default function RootLayout({
   const bodyFontClass = typographyConfig.bodyFont === "inter" ? inter.className : bodyText.className;
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${bodyFontClass} antialiased bg-background text-foreground`}>
+      <body className={`${inter.variable} ${bodyFontClass} antialiased bg-[#0B0E12] text-[#EAEAEA]`}>
         <BrandAndNav />
         <main>{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );

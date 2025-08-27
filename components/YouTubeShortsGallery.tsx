@@ -98,8 +98,8 @@ export default function YouTubeShortsGallery() {
   };
 
   return (
-    <div className="w-full h-screen bg-black text-white overflow-hidden">
-      <div className="h-full pt-16 sm:pt-20 px-2 sm:px-4 md:px-8 flex items-center justify-center relative">
+    <div className="w-full min-h-screen bg-transparent text-white overflow-hidden">
+      <div className="h-full px-2 sm:px-4 md:px-8 flex items-center justify-center relative pt-6">
         <div className="flex items-center justify-center gap-2 sm:gap-4 max-w-7xl mx-auto w-full">
           {/* Left chevron (responsive sizing) */}
           <div className="flex-shrink-0 w-8 sm:w-10 flex justify-center">
@@ -205,10 +205,7 @@ export default function YouTubeShortsGallery() {
           </div>
         </div>
         
-        {/* Made With Love text */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-          <p className="text-white text-sm">Made With Love ❤️</p>
-        </div>
+        {/* Removed bottom overlay to eliminate black bar appearance */}
       </div>
 
       {/* Modal */}

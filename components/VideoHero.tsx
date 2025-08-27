@@ -1,9 +1,11 @@
-import Link from "next/link";
+"use client";
 import SpotifySlideout from "@/components/SpotifySlideout";
+import { div as MotionDiv } from "framer-motion/client";
 
 export default function VideoHero() {
   return (
     <section className="relative h-[100svh] w-full grid place-items-center overflow-hidden">
+      {/* Video Background */}
       <video
         className="absolute inset-0 h-full w-full object-cover"
         playsInline
@@ -17,14 +19,13 @@ export default function VideoHero() {
         <source src="/media/hero-4k.mp4" type="video/mp4" />
         <source src="/media/hero-1080.mp4" type="video/mp4" />
       </video>
-      {/* Softer, even circular vignette with long feather */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(0,0,0,0)_54%,_rgba(0,0,0,0.04)_70%,_rgba(0,0,0,0.08)_82%,_rgba(0,0,0,0.12)_92%,_rgba(0,0,0,0.16)_100%)]"
-        aria-hidden
-      />
+
+      {/* No overlay mask - show raw video */}
+
+      {/* Remove all hero text/buttons to expose full video */}
+
+      {/* Spotify component */}
       <SpotifySlideout />
     </section>
   );
 }
-
-

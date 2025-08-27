@@ -2,63 +2,142 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { div as MotionDiv, h2 as MotionH2, h3 as MotionH3 } from "framer-motion/client";
 
 type VideoItem = {
   id: string;
-  poster: string;     // /images/...
-  href: string;       // external IG/YT URL
-  caption: string;    // e.g., "A LITTLE MORE"
+  poster?: string;     // /images/...
+  href: string;        // external IG/YT URL
+  caption: string;     // e.g., "A LITTLE MORE"
 };
 
 export default function FeaturedVideos({
   items,
   className,
-  title = "Videos",
+  title = "Video",
 }: { items: VideoItem[]; className?: string; title?: string }) {
-  return (
-    <section className={cn("bg-brand-night py-14 md:py-20", className)}>
-      <div className="mx-auto max-w-6xl px-4">
-        <h2 className="text-center text-4xl md:text-5xl font-semibold text-white mb-8">{title}</h2>
+  const [idx, setIdx] = useState(0);
+  const safeItems = items && items.length ? items : [];
+  const current = safeItems.length ? safeItems[(idx + safeItems.length) % safeItems.length] : undefined;
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {items.map((v, i) => (
-            <motion.div
-              key={v.id}
-              initial={{ opacity: 0, y: 16 }}
+  return (
+    <section id="videos" className={cn("relative min-h-[100svh] flex items-center justify-center py-16 overflow-hidden", className)}>
+
+      {/* Light sky blue background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-sky-300 via-sky-200 to-sky-100" aria-hidden />
+      <div className="absolute inset-0 pointer-events-none opacity-20 [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:6px_6px]" aria-hidden />
+
+      <div className="mx-auto max-w-6xl px-6 md:px-8 relative z-10 w-full">
+        {/* Section Header */}
+        <div className="text-center mb-8">
+          <MotionH2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-5xl md:text-6xl font-bold text-white tracking-tight"
+          >
+            {title}
+          </MotionH2>
+          <p className="text-white/70 mt-3">Watch the latest performances and behind-the-scenes moments</p>
+        </div>
+
+        {/* Single centered video card with nav arrows */}
+        {current && (
+          <div className="relative">
+            {/* Nav arrows */}
+            <button
+              aria-label="Previous"
+              onClick={() => setIdx((v) => (v - 1 + safeItems.length) % safeItems.length)}
+              className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 items-center justify-center text-white z-10"
+            >
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor" className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+              </svg>
+            </button>
+            <button
+              aria-label="Next"
+              onClick={() => setIdx((v) => (v + 1) % safeItems.length)}
+              className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 items-center justify-center text-white z-10"
+            >
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor" className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+                <path d="M8.59 7.41 10 6l6 6-6 6-1.41-1.41L13.17 12z"/>
+              </svg>
+            </button>
+
+            <MotionDiv
+              key={current.id}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl ring-1 ring-white/10"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="group relative max-w-4xl mx-auto"
             >
-              <Link href={v.href} target="_blank" rel="noopener noreferrer" data-analytics="video_tile_click">
-                <div className="relative aspect-video">
-                  <Image 
-                    src={v.poster} 
-                    alt={v.caption} 
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
-                  {/* Play triangle */}
-                  <div
-                    aria-hidden
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                  >
-                    <svg viewBox="0 0 100 100" className="h-24 w-24 md:h-32 md:w-32 drop-shadow-xl">
-                      <polygon points="35,25 35,75 75,50" className="fill-white/80 group-hover:fill-white transition" />
-                    </svg>
-                  </div>
-                  {/* Caption */}
-                  <div className="pointer-events-none absolute bottom-4 left-0 right-0 flex items-center justify-center">
-                    <span className="rounded-full border border-white/30 bg-black/30 px-4 py-1 text-sm tracking-widest text-white/90 backdrop-blur-sm">
-                      {v.caption.toUpperCase()}
-                    </span>
-                  </div>
+              {/* Video Card Container */}
+              <div className="relative overflow-hidden rounded-3xl shadow-2xl border-4 border-sky-400/70">
+                {/* If YouTube link, embed iframe, else keep poster */}
+                {(() => {
+                  const url = current.href || "";
+                  const ytIdMatch = url.match(/(?:v=|\.be\/)\s*([\w-]{11})/);
+                  const ytId = ytIdMatch ? ytIdMatch[1] : undefined;
+                  if (ytId) {
+                    const embed = `https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1&color=white`;
+                    return (
+                      <div className="relative aspect-[16/9] overflow-hidden">
+                        <iframe
+                          src={embed}
+                          className="absolute inset-0 h-full w-full"
+                          title={current.caption}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        />
+                      </div>
+                    );
+                  }
+                  return (
+                    <Link href={url} target="_blank" rel="noopener noreferrer" className="block">
+                      <div className="relative aspect-[16/9] overflow-hidden">
+                        {current.poster && (
+                          <Image
+                            src={current.poster}
+                            alt={current.caption}
+                            fill
+                            className="object-cover transition-all duration-700 group-hover:scale-105"
+                            sizes="(max-width: 1024px) 100vw, 800px"
+                          />
+                        )}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-2xl">
+                            <svg viewBox="0 0 24 24" className="w-10 h-10 text-black ml-1" fill="currentColor">
+                              <path d="M8 5v14l11-7z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })()}
+                {/* Caption */}
+                <div className="absolute -bottom-2 left-0 right-0 flex justify-center">
+                  <div className="px-4 py-2 rounded-full bg-black/80 text-white font-semibold shadow-lg">{current.caption}</div>
                 </div>
-              </Link>
-            </motion.div>
-          ))}
+              </div>
+            </MotionDiv>
+          </div>
+        )}
+
+        {/* See all */}
+        <div className="text-center mt-8">
+          <Link
+            href="https://www.instagram.com/jeremiahmusic"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-sky-500/30 hover:bg-sky-500/50 text-white px-6 py-3 rounded-full border border-sky-300/40 backdrop-blur-sm"
+          >
+            See All Videos
+            <span className="text-lg">↗</span>
+          </Link>
         </div>
       </div>
     </section>

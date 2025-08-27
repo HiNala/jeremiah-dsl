@@ -6,8 +6,8 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
-      {/* Top section - Black hero area (responsive proportion) */}
-      <div className="h-[65%] sm:h-[60%] bg-black flex items-center justify-center pt-12 sm:pt-16">
+      {/* Top section - Black hero area */}
+      <div className="min-h-[45vh] bg-black flex items-center justify-center">
         <div className="text-center text-white px-4 sm:px-8">
           <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-4xl mx-auto text-white/90">
             At Jeremiah Miller Music, we focus on building strong connections that drive growth 
@@ -18,10 +18,10 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Bottom section - Responsive layout (smaller proportion) */}
-      <div className="h-[35%] sm:h-[40%] grid grid-cols-1 sm:grid-cols-2">
+      {/* Bottom section - two-column layout without extra bars */}
+      <div className="grid grid-cols-1 sm:grid-cols-2">
         {/* Left: Real greyscale city image - mobile responsive */}
-        <div className="bg-gray-900 relative overflow-hidden h-32 sm:h-full">
+        <div className="bg-gray-900 relative overflow-hidden h-48 sm:h-[55vh]">
           <img 
             src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=800&fit=crop&crop=center&auto=format&q=90"
             alt="City skyline"

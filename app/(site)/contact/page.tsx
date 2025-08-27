@@ -6,9 +6,9 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <div className="pt-16 sm:pt-20 px-4 sm:px-6 pb-8">
+      <div className="px-4 sm:px-6 pb-8">
         {/* Main container - mobile responsive */}
-        <div className="flex items-center justify-center min-h-[calc(100vh-8rem)]">
+        <div className="flex items-center justify-center min-h-[70vh]">
           <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
             
             {/* Left: Contact info and details */}
