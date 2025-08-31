@@ -15,15 +15,11 @@ export default function Home() {
         <VideoHero />
       </div>
 
-      {/* Banner immediately below the hero */}
-      <MarqueeBanner />
-
       {/* World heat section (moved above Videos) */}
       <WorldTeaser topCities={["Los Angeles","San Francisco","New York","Mexico City","Austin"]} />
 
       {/* After hero – Video section (moved below World) */}
       <FeaturedVideos
-        showHeader={false}
         items={[
           { 
             id: "yt1", 
@@ -39,7 +35,8 @@ export default function Home() {
         ]}
       />
 
-      {/* Signup sections removed per request */}
+      {/* Place the slim black marquee just above signup */}
+      <MarqueeBanner />
 
       {/* Bring back the image signup section just above the footer */}
       <EdSignup />
