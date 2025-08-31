@@ -97,7 +97,7 @@ export default function WorldTeaser({
           alt=""
           fill
           priority
-          className="object-cover object-center"
+          className="object-cover object-center scale-110"
         />
       </div>
       {/* Lighter vignette to show more background */}
@@ -202,31 +202,8 @@ export default function WorldTeaser({
               {/* Leaderboard container */}
               <div className="relative">
                 <div className="relative overflow-hidden rounded-lg border-2 border-black/15 bg-white/85 backdrop-blur-md shadow-[0_12px_40px_rgba(0,0,0,0.15)]">
-                  {/* Header */}
-                  <div className="p-3 md:p-4 border-b border-black/10">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 bg-brand-flame rounded-full" />
-                        <h3 className="text-base md:text-lg font-bold text-black">Top Cities</h3>
-                      </div>
-                      <div className={`flex items-center gap-2 rounded-full px-2 py-0.5 ${
-                        connected ? 'bg-green-500/10' : 'bg-orange-500/10'
-                      }`}>
-                        <div className={`w-2 h-2 rounded-full ${
-                          connected ? 'bg-green-500 animate-pulse' : 'bg-orange-500'
-                        }`} />
-                        <span className={`text-sm font-medium ${
-                          connected ? 'text-green-700' : 'text-orange-700'
-                        }`}>
-                          {connected ? 'LIVE' : 'CONNECTING'}
-                        </span>
-                      </div>
-                    </div>
-                    <p className="text-black/50 text-xs">Voting updates every 24 hours</p>
-                  </div>
-                  
                   {/* Cities list */}
-                  <div className="p-3 md:p-4">
+                  <div className="p-4 md:p-5">
                     <div className="space-y-2">
                       {topCities.map((city, index) => {
                         const maxVotes = Math.max(...topCities.map(c => votes[c] ?? 1));
@@ -305,29 +282,7 @@ export default function WorldTeaser({
                           </MotionLi>
                         );
                       })}
-                    </div>
-                    
-                    {/* Footer */}
-                    <div className="mt-4 pt-3 border-t border-black/10 text-center">
-                                            <p className="text-black/50 text-xs mb-2">
-                        🔥 Live heat + full leaderboard on the World page
-                      </p>
-                      <div className="flex gap-2 justify-center text-xs">
-                        <button 
-                          onClick={openRequest}
-                          className="text-brand-flame hover:text-brand-flame/80 font-medium transition-colors duration-200 underline underline-offset-2"
-                        >
-                          Add your city
-                        </button>
-                        <span className="text-black/30">•</span>
-                        <button 
-                          onClick={handleRequestCity}
-                          className="text-brand-flame hover:text-brand-flame/80 font-medium transition-colors duration-200 underline underline-offset-2"
-                        >
-                          View Global Map →
-                        </button>
-                      </div>
-                    </div>
+                                        </div>
                   </div>
                 </div>
               </div>
