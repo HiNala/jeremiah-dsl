@@ -7,9 +7,9 @@ import { div as MotionDiv, h2 as MotionH2, h3 as MotionH3 } from "framer-motion/
 
 type VideoItem = {
   id: string;
-  poster: string;     // /images/...
-  href: string;       // external IG/YT URL
-  caption: string;    // e.g., "A LITTLE MORE"
+  poster?: string;     // /images/... (optional for YouTube videos)
+  href: string;        // external IG/YT URL
+  caption: string;     // e.g., "A LITTLE MORE"
 };
 
 export default function FeaturedVideos({

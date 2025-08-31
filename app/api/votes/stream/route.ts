@@ -2,8 +2,12 @@ import { NextRequest } from "next/server";
 import { addClient, removeClient, getRecentUpdates } from "@/lib/broadcast";
 
 export async function GET(req: NextRequest) {
+  let currentController: ReadableStreamDefaultController | null = null;
+  
   const stream = new ReadableStream({
     start(controller) {
+      currentController = controller;
+      
       // Send recent updates on connection
       getRecentUpdates().forEach(update => {
         const data = JSON.stringify(update);
@@ -23,7 +27,9 @@ export async function GET(req: NextRequest) {
       }, 30000);
     },
     cancel() {
-      removeClient(controller);
+      if (currentController) {
+        removeClient(currentController);
+      }
     }
   });
 
