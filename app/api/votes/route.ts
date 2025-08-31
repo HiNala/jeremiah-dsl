@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requestCitySchema, subscribeSchema, voteSchema } from "@/lib/validations";
-import { broadcast } from "./stream/route";
+import { broadcast } from "@/lib/broadcast";
 import { checkRateLimit, getRateLimitHeaders } from "@/lib/rateLimit";
 
 type City = { name: string; votes: number };
