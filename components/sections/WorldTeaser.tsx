@@ -90,14 +90,14 @@ export default function WorldTeaser({
 
   return (
     <section className="relative h-screen py-8 md:py-12 overflow-hidden">
-      {/* Background image (provided) */}
+      {/* Background image (floral) */}
       <div className="absolute inset-0 bg-[#F4EAD8]" aria-hidden>
         <Image
-          src={require("../../img/ChatGPT Image Aug 27, 2025, 10_01_49 PM.png")}
+          src={require("../../img/AdobeStock_658683101_Preview.jpeg")}
           alt=""
           fill
           priority
-          className="object-cover md:object-contain object-center"
+          className="object-cover object-center"
         />
       </div>
       {/* Very subtle vignette for readability */}
@@ -113,7 +113,7 @@ export default function WorldTeaser({
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="rounded-2xl bg-white/70 backdrop-blur-md border border-black/10 p-4 md:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.15)]"
+                             className="rounded-lg bg-white/80 backdrop-blur-md border border-black/15 p-4 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
             >
               {/* Section badge */}
               <div className="inline-flex items-center gap-2 bg-black/5 border border-black/10 rounded-full px-4 py-1.5 mb-4">
@@ -188,7 +188,7 @@ export default function WorldTeaser({
             >
               {/* Leaderboard container */}
               <div className="relative">
-                <div className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/70 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.12)]">
+                <div className="relative overflow-hidden rounded-lg border-2 border-black/15 bg-white/85 backdrop-blur-md shadow-[0_12px_40px_rgba(0,0,0,0.15)]">
                   {/* Header */}
                   <div className="p-3 md:p-4 border-b border-black/10">
                     <div className="flex items-center justify-between mb-2">
@@ -231,19 +231,19 @@ export default function WorldTeaser({
                             className="group relative"
                           >
                             <div
-                              className={`select-none flex items-center justify-between p-3 rounded-xl transition-colors duration-200 border ${
-                                isTop3 
-                                  ? 'bg-white/80 border-black/10' 
-                                  : 'bg-white/60 hover:bg-white/70 border-black/10'
-                              }`}
+                                                             className={`select-none flex items-center justify-between p-4 rounded-md transition-all duration-200 border-2 ${
+                                 isTop3 
+                                   ? 'bg-white/90 border-black/20 shadow-sm' 
+                                   : 'bg-white/75 hover:bg-white/85 border-black/15 hover:border-black/25 hover:shadow-sm'
+                               }`}
                             >
                               <div className="flex items-center gap-4">
                                 {/* Rank with special styling for top 3 */}
-                                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${
-                                  index === 0 ? 'bg-yellow-500 text-black' :
-                                  index === 1 ? 'bg-gray-400 text-black' :
-                                  index === 2 ? 'bg-amber-600 text-white' :
-                                  'bg-black/10 text-black'
+                                <div className={`flex items-center justify-center w-9 h-9 rounded-md font-bold text-sm ${
+                                  index === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-black shadow-md' :
+                                  index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-black shadow-md' :
+                                  index === 2 ? 'bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-md' :
+                                  'bg-black/15 text-black/70'
                                 }`}>
                                   {index + 1}
                                 </div>
@@ -262,7 +262,7 @@ export default function WorldTeaser({
                               
                               {/* Enhanced progress bar + vote button */}
                               <div className="flex items-center gap-3">
-                                <div className="w-20 md:w-24 h-2 rounded-full bg-black/10 overflow-hidden">
+                                                                 <div className="w-20 md:w-24 h-3 rounded-sm bg-black/15 overflow-hidden">
                                   <MotionDiv 
                                     initial={{ width: 0 }}
                                     whileInView={{ width: `${percentage}%` }}
@@ -272,10 +272,10 @@ export default function WorldTeaser({
                                       delay: 1.2 + index * 0.1, 
                                       ease: "easeOut" 
                                     }}
-                                    className={`h-2 rounded-full ${
+                                    className={`h-3 rounded-sm ${
                                       isTop3 
-                                        ? 'bg-brand-flame' 
-                                        : 'bg-black/30'
+                                        ? 'bg-gradient-to-r from-brand-flame to-brand-flame/80' 
+                                        : 'bg-black/35'
                                     }`}
                                   />
                                 </div>
@@ -284,9 +284,9 @@ export default function WorldTeaser({
                                 }`}>
                                   {percentage}%
                                 </span>
-                                <Button size="sm" className="ml-1 bg-brand-flame text-white hover:bg-brand-flame/90 text-xs px-3 py-1" onClick={() => openVoteFor(city)}>
-                                  VOTE
-                                </Button>
+                                                                 <Button size="sm" className="ml-2 bg-brand-flame text-white hover:bg-brand-flame/90 text-xs px-4 py-2 rounded-md font-semibold shadow-sm hover:shadow-md transition-all duration-200" onClick={() => openVoteFor(city)}>
+                                   VOTE
+                                 </Button>
                               </div>
                             </div>
                           </MotionLi>
