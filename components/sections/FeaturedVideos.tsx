@@ -1,47 +1,65 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { div as MotionDiv, h2 as MotionH2, h3 as MotionH3 } from "framer-motion/client";
 
 type VideoItem = {
   id: string;
-  poster?: string;     // /images/...
-  href: string;        // external IG/YT URL
-  caption: string;     // e.g., "A LITTLE MORE"
+  poster: string;     // /images/...
+  href: string;       // external IG/YT URL
+  caption: string;    // e.g., "A LITTLE MORE"
 };
 
 export default function FeaturedVideos({
   items,
   className,
-  title = "Video",
-}: { items: VideoItem[]; className?: string; title?: string }) {
+  title = "Videos",
+  showHeader = true,
+}: { items: VideoItem[]; className?: string; title?: string; showHeader?: boolean }) {
   const [idx, setIdx] = useState(0);
   const safeItems = items && items.length ? items : [];
   const current = safeItems.length ? safeItems[(idx + safeItems.length) % safeItems.length] : undefined;
-
   return (
-    <section id="videos" className={cn("relative min-h-[100svh] flex items-center justify-center py-16 overflow-hidden", className)}>
+    <section id="videos" className={cn("relative py-24 md:py-32 overflow-hidden", className)}>
+      {/* New background image */}
+      <div className="absolute inset-0" aria-hidden>
+        <Image
+          src={require("../../img/ChatGPT Image Aug 27, 2025, 10_38_26 PM.png")}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+        />
+      </div>
 
-      {/* Light sky blue background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-sky-300 via-sky-200 to-sky-100" aria-hidden />
-      <div className="absolute inset-0 pointer-events-none opacity-20 [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:6px_6px]" aria-hidden />
-
-      <div className="mx-auto max-w-6xl px-6 md:px-8 relative z-10 w-full">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-8">
-          <MotionH2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-5xl md:text-6xl font-bold text-white tracking-tight"
-          >
-            {title}
-          </MotionH2>
-          <p className="text-white/70 mt-3">Watch the latest performances and behind-the-scenes moments</p>
-        </div>
+        {showHeader && (
+          <div className="text-center mb-20">
+            <MotionH2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight"
+            >
+              {title}
+            </MotionH2>
+            <MotionDiv
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <p className="text-2xl md:text-3xl text-white/70 font-light max-w-3xl mx-auto leading-relaxed">
+                Watch the latest performances and behind-the-scenes moments
+              </p>
+              <div className="w-24 h-1 bg-gradient-to-r from-brand-flame to-brand-glow mx-auto mt-6 rounded-full" />
+            </MotionDiv>
+          </div>
+        )}
 
         {/* Single centered video card with nav arrows */}
         {current && (

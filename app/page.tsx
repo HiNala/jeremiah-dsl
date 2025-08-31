@@ -15,11 +15,15 @@ export default function Home() {
         <VideoHero />
       </div>
 
-      {/* Slim marquee banner separator */}
+      {/* Banner immediately below the hero */}
       <MarqueeBanner />
 
-      {/* After hero – Video section */}
+      {/* World heat section (moved above Videos) */}
+      <WorldTeaser topCities={["Los Angeles","San Francisco","New York","Mexico City","Austin"]} />
+
+      {/* After hero – Video section (moved below World) */}
       <FeaturedVideos
+        showHeader={false}
         items={[
           { 
             id: "yt1", 
@@ -34,10 +38,6 @@ export default function Home() {
           },
         ]}
       />
-
-      {/* Replace Book section with image signup section */}
-      {/* World heat section */}
-      <WorldTeaser topCities={["Los Angeles","San Francisco","New York","Mexico City","Austin"]} />
 
       {/* Signup sections removed per request */}
 

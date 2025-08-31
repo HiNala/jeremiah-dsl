@@ -1,40 +1,17 @@
 "use client";
+import Image from "next/image";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
+import VoteModal, { type VoteModalMode } from "@/components/VoteModal";
 import { div as MotionDiv, li as MotionLi, h2 as MotionH2 } from "framer-motion/client";
-import { useShaderBackground } from "@/components/hooks/useShaderBackground";
+import { useRealTimeVotes } from "@/hooks/useRealTimeVotes";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
-// Cool blue shader adapted from the provided App.tsx example (blue/cyan clouds)
-const BLUE_SHADER = `#version 300 es
-precision highp float;
-out vec4 O; uniform vec2 resolution; uniform float time; 
-#define FC gl_FragCoord.xy
-#define T time
-#define R resolution
-#define MN min(R.x,R.y)
-float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);} 
-float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);float a=rnd(i),b=rnd(i+vec2(1,0)),c=rnd(i+vec2(0,1)),d=rnd(i+1.);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);} 
-float fbm(vec2 p){float t=.0,a=1.;mat2 m=mat2(1.,-.5,.2,1.2);for(int i=0;i<5;i++){t+=a*noise(p);p*=2.*m;a*=.5;}return t;} 
-float clouds(vec2 p){float d=1.,t=.0;for(float i=.0;i<3.;i++){float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);t=mix(t,d,a);d=a;p*=2./(i+1.);}return t;} 
-void main(){vec2 uv=(FC-.5*R)/MN, st=uv*vec2(2.,1.);
- float bg=clouds(vec2(st.x+T*.2,-st.y));
- vec3 col=vec3(0.0);
- uv*=1.-.25*(sin(T*.08)*.5+.5);
- for(float i=1.; i<10.; i++){
-   uv+=.09*cos(i*vec2(.11+.01*i,.8)+i*i+T*.18+.1*uv.x);
-   vec2 p=uv; float d=length(p);
-   col+=.0016/d*(cos(sin(i)*vec3(0.1,0.6,1.0))+vec3(0.2,0.6,0.95));
-   float b=noise(i+p+bg*1.5);
-   col+=.0025*b/length(max(p,vec2(b*p.x*.02,p.y)));
-   col=mix(col, vec3(bg*.15,bg*.35,bg*.65), d);
- }
- O=vec4(col,1.);
-}`;
+// Background uses the same light sky gradient and subtle grain as FeaturedVideos
 
 export default function WorldTeaser({
   topCities = ["Los Angeles","San Francisco","New York","Mexico City","Austin"],
 }: { topCities?: string[] }) {
-  // Shader background (blue)
-  const canvasRef = useShaderBackground(BLUE_SHADER);
   
   // Deterministic votes to avoid hydration mismatches
   const seededVotesForCity = (name: string, index: number): number => {
@@ -47,6 +24,64 @@ export default function WorldTeaser({
     return Math.abs(hash % 1000) + 500; // 500..1499
   };
   
+  // Local votes state so clicking can increment a city's votes (client-only)
+  const [votes, setVotes] = useState<Record<string, number>>(() => {
+    const initial: Record<string, number> = {};
+    topCities.forEach((name, i) => { initial[name] = seededVotesForCity(name, i); });
+    return initial;
+  });
+
+  // Modal state
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<VoteModalMode>("vote");
+  const [selectedCity, setSelectedCity] = useState<string | undefined>(undefined);
+
+  // Load cities from API on mount
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await fetch("/api/votes", { cache: "no-store" });
+        const data = (await res.json()) as { cities?: { name: string; votes: number }[] };
+        if (mounted && data?.cities) {
+          const map: Record<string, number> = {};
+          for (const c of data.cities) map[c.name] = c.votes;
+          setVotes(map);
+        }
+      } catch {}
+    })();
+    return () => { mounted = false; };
+  }, []);
+
+  const openVoteFor = (city: string) => {
+    setSelectedCity(city);
+    setModalMode("vote");
+    setModalOpen(true);
+  };
+
+  const openRequest = () => {
+    setSelectedCity(undefined);
+    setModalMode("request");
+    setModalOpen(true);
+  };
+
+  const applyServerCities = useCallback((cities: { name: string; votes: number }[]) => {
+    const map: Record<string, number> = {};
+    for (const c of cities) map[c.name] = c.votes;
+    setVotes(map);
+  }, []);
+
+  // Real-time vote updates
+  const handleRealTimeUpdate = useCallback((update: { type: string; city: string; votes: number }) => {
+    setVotes(prev => ({ ...prev, [update.city]: update.votes }));
+  }, []);
+
+  const { connected } = useRealTimeVotes(handleRealTimeUpdate);
+
+  const incrementCity = (city: string) => {
+    setVotes(prev => ({ ...prev, [city]: (prev[city] ?? 0) + 1 }));
+  };
+
   const handleRequestCity = () => {
     if (typeof window !== 'undefined') {
       window.location.assign("/world");
@@ -54,52 +89,52 @@ export default function WorldTeaser({
   };
 
   return (
-    <section className="relative min-h-[100svh] py-10 md:py-12 overflow-hidden">
-      {/* Shader background */}
-      <canvas
-        ref={canvasRef as any}
-        className="absolute inset-0 w-full h-full object-cover touch-none"
-        style={{ background: "black" }}
-        aria-hidden
-      />
-      {/* Subtle dark mask for better contrast */}
-      <div className="absolute inset-0 bg-black/20" aria-hidden />
+    <section className="relative h-screen py-8 md:py-12 overflow-hidden">
+      {/* Background image (provided) */}
+      <div className="absolute inset-0 bg-[#F4EAD8]" aria-hidden>
+        <Image
+          src={require("../../img/ChatGPT Image Aug 27, 2025, 10_01_49 PM.png")}
+          alt=""
+          fill
+          priority
+          className="object-cover md:object-contain object-center"
+        />
+      </div>
+      {/* Very subtle vignette for readability */}
+      <div className="absolute inset-0 bg-black/10 [mask-image:radial-gradient(120%_120%_at_50%_40%,black,transparent_70%)]" aria-hidden />
       
-      <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10">
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-10 items-center">
+      <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 h-full flex items-center">
+        <div className="grid gap-6 lg:grid-cols-12 lg:gap-8 items-center w-full">
           
           {/* Content Side */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-4">
             <MotionDiv
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
+              className="rounded-2xl bg-white/70 backdrop-blur-md border border-black/10 p-4 md:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.15)]"
             >
               {/* Section badge */}
-              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2 mb-8 backdrop-blur-sm">
-                <div className="w-2 h-2 bg-brand-flame rounded-full animate-pulse" />
-                <span className="text-white/80 text-sm font-medium tracking-wide">GLOBAL TOUR</span>
+              <div className="inline-flex items-center gap-2 bg-black/5 border border-black/10 rounded-full px-4 py-1.5 mb-4">
+                <div className="w-2 h-2 bg-brand-flame rounded-full" />
+                <span className="text-black/70 text-xs font-semibold tracking-wide">GLOBAL TOUR</span>
               </div>
 
               {/* Premium headline */}
-              <MotionH2 className="text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight leading-[1]">
+              <MotionH2 className="text-4xl md:text-5xl font-bold text-black mb-2 tracking-tight leading-[1.05]">
                 Where should I go
                 <br />
-                <span className="text-transparent bg-gradient-to-r from-brand-flame via-brand-glow to-brand-flame bg-clip-text">
-                  next?
-                </span>
+                <span className="text-brand-flame">next?</span>
               </MotionH2>
               
               {/* Enhanced subtitle */}
-              <p className="text-lg md:text-xl text-white/90 font-light mb-5 leading-relaxed max-w-lg">
-                Request your city—get friends to vote. 
-                <br />
-                <span className="text-brand-glow font-medium">The hottest map wins.</span>
+              <p className="text-sm md:text-base text-black/70 mb-4 leading-relaxed max-w-lg">
+                Request your city—get friends to vote. <span className="font-semibold text-black/80">The hottest map wins.</span>
               </p>
 
               {/* Features list */}
-              <div className="space-y-3 mb-4">
+              <div className="space-y-2 mb-3">
                 {[
                   { icon: "🗳️", text: "Community voting system" },
                   { icon: "🔥", text: "Real-time heat tracking" },
@@ -111,10 +146,10 @@ export default function WorldTeaser({
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.5 }}
-                    className="flex items-center gap-3 text-white/70"
+                    className="flex items-center gap-3 text-black/70"
                   >
-                    <span className="text-xl">{feature.icon}</span>
-                    <span className="font-medium">{feature.text}</span>
+                    <span className="text-lg">{feature.icon}</span>
+                    <span className="font-medium text-sm">{feature.text}</span>
                   </MotionDiv>
                 ))}
               </div>
@@ -127,13 +162,13 @@ export default function WorldTeaser({
                 transition={{ delay: 0.6 }}
               >
                 <Button 
-                  size="default"
-                  className="group bg-gradient-to-r from-brand-flame to-brand-flame/80 hover:from-brand-flame/90 hover:to-brand-flame text-white font-bold px-8 py-4 text-lg rounded-full shadow-2xl hover:shadow-brand-flame/25 transition-all duration-300 transform hover:scale-105" 
+                  size="sm"
+                  className="group bg-brand-flame hover:bg-brand-flame/90 text-white font-semibold px-6 py-2 text-sm rounded-full shadow-lg transition-all duration-200" 
                   onClick={handleRequestCity}
                 >
-                  <span className="flex items-center gap-3">
+                  <span className="flex items-center gap-2">
                     Request My City
-                    <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2L2 7v10c0 5.55 3.84 9.739 9 11 5.16-1.261 9-5.45 9-11V7l-10-5z"/>
                     </svg>
                   </span>
@@ -149,34 +184,41 @@ export default function WorldTeaser({
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative md:ml-16 lg:ml-24 xl:ml-36"
+              className="relative md:ml-8 lg:ml-12 xl:ml-16"
             >
               {/* Leaderboard container */}
-              <div className="relative group">
-                {/* Glow effects */}
-                <div className="absolute -inset-8 bg-gradient-to-r from-brand-flame/20 to-brand-glow/20 rounded-3xl blur-2xl group-hover:from-brand-flame/30 group-hover:to-brand-glow/30 transition-all duration-700" />
-                
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl max-h-[calc(100svh-200px)] overflow-auto">
+              <div className="relative">
+                <div className="relative overflow-hidden rounded-2xl border border-black/10 bg-white/70 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.12)]">
                   {/* Header */}
-                  <div className="p-4 md:p-5 border-b border-white/10">
+                  <div className="p-3 md:p-4 border-b border-black/10">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 bg-brand-flame rounded-full animate-pulse" />
-                        <h3 className="text-lg md:text-xl font-bold text-white">Top Cities</h3>
+                        <div className="w-3 h-3 bg-brand-flame rounded-full" />
+                        <h3 className="text-base md:text-lg font-bold text-black">Top Cities</h3>
                       </div>
-                      <div className="flex items-center gap-2 bg-green-500/20 rounded-full px-2 py-0.5">
-                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                        <span className="text-green-300 text-sm font-medium">LIVE</span>
+                      <div className={`flex items-center gap-2 rounded-full px-2 py-0.5 ${
+                        connected ? 'bg-green-500/10' : 'bg-orange-500/10'
+                      }`}>
+                        <div className={`w-2 h-2 rounded-full ${
+                          connected ? 'bg-green-500 animate-pulse' : 'bg-orange-500'
+                        }`} />
+                        <span className={`text-sm font-medium ${
+                          connected ? 'text-green-700' : 'text-orange-700'
+                        }`}>
+                          {connected ? 'LIVE' : 'CONNECTING'}
+                        </span>
                       </div>
                     </div>
-                    <p className="text-white/60 text-xs">Voting updates every 24 hours</p>
+                    <p className="text-black/50 text-xs">Voting updates every 24 hours</p>
                   </div>
                   
                   {/* Cities list */}
-                  <div className="p-4 md:p-5">
-                    <div className="space-y-3">
+                  <div className="p-3 md:p-4">
+                    <div className="space-y-2">
                       {topCities.map((city, index) => {
-                        const percentage = 80 - index * 12;
+                        const maxVotes = Math.max(...topCities.map(c => votes[c] ?? 1));
+                        const cityVotes = votes[city] ?? 0;
+                        const percentage = Math.max(5, Math.round((cityVotes / maxVotes) * 100));
                         const isTop3 = index < 3;
                         
                         return (
@@ -188,37 +230,39 @@ export default function WorldTeaser({
                             transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                             className="group relative"
                           >
-                            <div className={`flex items-center justify-between p-3 rounded-2xl transition-all duration-300 ${
-                              isTop3 
-                                ? 'bg-gradient-to-r from-brand-flame/10 to-brand-glow/10 border border-brand-flame/20' 
-                                : 'bg-white/5 hover:bg-white/10 border border-white/10'
-                            }`}>
+                            <div
+                              className={`select-none flex items-center justify-between p-3 rounded-xl transition-colors duration-200 border ${
+                                isTop3 
+                                  ? 'bg-white/80 border-black/10' 
+                                  : 'bg-white/60 hover:bg-white/70 border-black/10'
+                              }`}
+                            >
                               <div className="flex items-center gap-4">
                                 {/* Rank with special styling for top 3 */}
                                 <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${
-                                  index === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-600 text-black' :
-                                  index === 1 ? 'bg-gradient-to-br from-gray-300 to-gray-500 text-black' :
-                                  index === 2 ? 'bg-gradient-to-br from-amber-600 to-amber-800 text-white' :
-                                  'bg-white/10 text-white'
+                                  index === 0 ? 'bg-yellow-500 text-black' :
+                                  index === 1 ? 'bg-gray-400 text-black' :
+                                  index === 2 ? 'bg-amber-600 text-white' :
+                                  'bg-black/10 text-black'
                                 }`}>
                                   {index + 1}
                                 </div>
                                 
                                 <div>
-                                  <h4 className={`text-base md:text-lg font-semibold transition-colors ${
-                                    isTop3 ? 'text-white' : 'text-white/90 group-hover:text-white'
+                                  <h4 className={`text-sm md:text-base font-semibold transition-colors ${
+                                    isTop3 ? 'text-black' : 'text-black'
                                   }`}>
                                     {city}
                                   </h4>
-                                  <p className="text-white/60 text-xs">
-                                    {seededVotesForCity(city, index)} votes
+                                  <p className="text-black/50 text-xs">
+                                    <AnimatedCounter value={cityVotes} /> votes
                                   </p>
                                 </div>
                               </div>
                               
-                              {/* Enhanced progress bar */}
+                              {/* Enhanced progress bar + vote button */}
                               <div className="flex items-center gap-3">
-                                <div className="w-24 md:w-28 h-2 rounded-full bg-white/10 overflow-hidden">
+                                <div className="w-20 md:w-24 h-2 rounded-full bg-black/10 overflow-hidden">
                                   <MotionDiv 
                                     initial={{ width: 0 }}
                                     whileInView={{ width: `${percentage}%` }}
@@ -230,16 +274,19 @@ export default function WorldTeaser({
                                     }}
                                     className={`h-2 rounded-full ${
                                       isTop3 
-                                        ? 'bg-gradient-to-r from-brand-flame to-brand-glow' 
-                                        : 'bg-gradient-to-r from-white/40 to-white/20'
+                                        ? 'bg-brand-flame' 
+                                        : 'bg-black/30'
                                     }`}
                                   />
                                 </div>
                                 <span className={`text-xs font-medium min-w-[2.5rem] ${
-                                  isTop3 ? 'text-brand-glow' : 'text-white/70'
+                                  isTop3 ? 'text-brand-flame' : 'text-black'
                                 }`}>
                                   {percentage}%
                                 </span>
+                                <Button size="sm" className="ml-1 bg-brand-flame text-white hover:bg-brand-flame/90 text-xs px-3 py-1" onClick={() => openVoteFor(city)}>
+                                  VOTE
+                                </Button>
                               </div>
                             </div>
                           </MotionLi>
@@ -248,16 +295,25 @@ export default function WorldTeaser({
                     </div>
                     
                     {/* Footer */}
-                    <div className="mt-8 pt-6 border-t border-white/10 text-center">
-                      <p className="text-white/60 text-sm mb-3">
+                    <div className="mt-4 pt-3 border-t border-black/10 text-center">
+                                            <p className="text-black/50 text-xs mb-2">
                         🔥 Live heat + full leaderboard on the World page
                       </p>
-                      <button 
-                        onClick={handleRequestCity}
-                        className="text-brand-flame hover:text-brand-glow font-medium text-sm transition-colors duration-200 underline underline-offset-2"
-                      >
-                        View Global Map →
-                      </button>
+                      <div className="flex gap-2 justify-center text-xs">
+                        <button 
+                          onClick={openRequest}
+                          className="text-brand-flame hover:text-brand-flame/80 font-medium transition-colors duration-200 underline underline-offset-2"
+                        >
+                          Add your city
+                        </button>
+                        <span className="text-black/30">•</span>
+                        <button 
+                          onClick={handleRequestCity}
+                          className="text-brand-flame hover:text-brand-flame/80 font-medium transition-colors duration-200 underline underline-offset-2"
+                        >
+                          View Global Map →
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -266,6 +322,8 @@ export default function WorldTeaser({
           </div>
         </div>
       </div>
+      <VoteModal open={modalOpen} mode={modalMode} city={selectedCity} onClose={() => setModalOpen(false)} onSuccess={applyServerCities} />
+      {/* Removed clouds/texture CSS */}
     </section>
   );
 }

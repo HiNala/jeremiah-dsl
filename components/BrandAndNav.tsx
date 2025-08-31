@@ -32,10 +32,10 @@ export default function BrandAndNav() {
           <div className={`flex items-center justify-between ${scrolled ? 'h-12 sm:h-14' : 'h-16 sm:h-18 md:h-20'}`}>
             {/* Navigation items */}
             <Link 
-              className={`font-sans text-sm sm:text-base md:text-lg font-semibold tracking-wide transition-all duration-200 hover:scale-105 ${
+              className={`font-sans text-sm sm:text-base md:text-lg font-semibold tracking-wide ${
                 isHomePage 
-                  ? 'text-white hover:text-brand-flame drop-shadow-lg' 
-                  : 'text-white hover:text-white/80'
+                  ? 'text-white drop-shadow-lg' 
+                  : 'text-white'
               }`} 
               href="/"
             >
@@ -43,10 +43,10 @@ export default function BrandAndNav() {
             </Link>
             
             <Link 
-              className={`font-sans text-sm sm:text-base md:text-lg font-semibold tracking-wide transition-all duration-200 hover:scale-105 ${
+              className={`font-sans text-sm sm:text-base md:text-lg font-semibold tracking-wide ${
                 isHomePage 
-                  ? 'text-white hover:text-brand-flame drop-shadow-lg' 
-                  : 'text-white hover:text-white/80'
+                  ? 'text-white drop-shadow-lg' 
+                  : 'text-white'
               }`} 
               href="/globe"
             >
@@ -56,20 +56,18 @@ export default function BrandAndNav() {
             {/* Center brand - Enhanced handwritten style */}
             <Link 
               href="/about" 
-              className={`${rockSalt.className} text-2xl sm:text-3xl md:text-4xl transition-all duration-200 hover:scale-110 text-center font-normal ${
-                isHomePage 
-                  ? 'text-white hover:text-brand-glow drop-shadow-2xl' 
-                  : 'text-white hover:text-white/90'
-              }`}
+              className={`${rockSalt.className} text-center font-normal ${
+                scrolled ? 'text-2xl sm:text-3xl' : 'text-2xl sm:text-3xl md:text-4xl'
+              } ${isHomePage ? 'text-white drop-shadow-2xl' : 'text-white'}`}
             >
               Jeremiah Miller
             </Link>
             
             <Link 
-              className={`font-sans text-sm sm:text-base md:text-lg font-semibold tracking-wide transition-all duration-200 hover:scale-105 ${
+              className={`font-sans text-sm sm:text-base md:text-lg font-semibold tracking-wide ${
                 isHomePage 
-                  ? 'text-white hover:text-brand-flame drop-shadow-lg' 
-                  : 'text-white hover:text-white/80'
+                  ? 'text-white drop-shadow-lg' 
+                  : 'text-white'
               }`} 
               href="/music"
             >
@@ -77,10 +75,10 @@ export default function BrandAndNav() {
             </Link>
             
             <Link 
-              className={`font-sans text-sm sm:text-base md:text-lg font-semibold tracking-wide transition-all duration-200 hover:scale-105 ${
+              className={`font-sans text-sm sm:text-base md:text-lg font-semibold tracking-wide ${
                 isHomePage 
-                  ? 'text-white hover:text-brand-flame drop-shadow-lg' 
-                  : 'text-white hover:text-white/80'
+                  ? 'text-white drop-shadow-lg' 
+                  : 'text-white'
               }`} 
               href="/contact"
             >

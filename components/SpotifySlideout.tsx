@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 const SPOTIFY_ARTIST_EMBED = "https://open.spotify.com/embed/artist/05xIKia0SX2CEsN0gtshfw?utm_source=generator&theme=0";
 
 export default function SpotifySlideout() {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const toggleExpanded = () => {
@@ -19,17 +19,10 @@ export default function SpotifySlideout() {
     // For now, this just toggles the visual state
   };
 
-  // Auto-collapse after a short delay (optional - can be removed if not desired)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsExpanded(false);
-    }, 5000); // Auto-collapse after 5 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Removed auto-collapse to keep control static within the hero
 
   return (
-    <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 select-none">
+    <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-20 select-none">
       <div className="relative">
         {/* Expanded Spotify card */}
         <div 

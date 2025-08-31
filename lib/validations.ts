@@ -18,4 +18,34 @@ export const contactSchema = z.object({
 
 export type ContactFormData = z.infer<typeof contactSchema>;
 
+// Voting and city request schemas
+export const emailSchema = z.string().email("Please enter a valid email").max(254);
+
+export const cityNameSchema = z
+  .string()
+  .min(2, "City name is too short")
+  .max(80, "City name is too long")
+  .transform((s) => s.trim())
+  .refine((s) => /[a-zA-Z]/.test(s), { message: "City name must include letters" });
+
+export const voteSchema = z.object({
+  city: cityNameSchema,
+  email: emailSchema,
+  consent: z.boolean().optional().default(false),
+});
+
+export const requestCitySchema = z.object({
+  city: cityNameSchema,
+  email: emailSchema,
+  consent: z.boolean().optional().default(false),
+});
+
+export const subscribeSchema = z.object({
+  email: emailSchema,
+  consent: z.boolean().optional().default(false),
+});
+
+export type VoteBody = z.infer<typeof voteSchema>;
+export type RequestCityBody = z.infer<typeof requestCitySchema>;
+export type SubscribeBody = z.infer<typeof subscribeSchema>;
 
