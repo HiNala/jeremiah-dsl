@@ -2,7 +2,6 @@
   "name": "jeremiah-miller-site",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "packageManager": "pnpm@10.14.0",
   "engines": {
     "node": ">=18 <23",
