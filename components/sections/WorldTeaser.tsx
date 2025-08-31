@@ -100,8 +100,8 @@ export default function WorldTeaser({
           className="object-cover object-center"
         />
       </div>
-      {/* Very subtle vignette for readability */}
-      <div className="absolute inset-0 bg-black/10 [mask-image:radial-gradient(120%_120%_at_50%_40%,black,transparent_70%)]" aria-hidden />
+      {/* Lighter vignette to show more background */}
+      <div className="absolute inset-0 bg-black/5 [mask-image:radial-gradient(140%_140%_at_50%_40%,black,transparent_75%)]" aria-hidden />
       
       <div className="mx-auto max-w-7xl px-6 md:px-8 relative z-10 h-full flex items-center">
         <div className="grid gap-6 lg:grid-cols-12 lg:gap-8 items-center w-full">
@@ -113,12 +113,12 @@ export default function WorldTeaser({
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-                             className="rounded-lg bg-white/80 backdrop-blur-md border border-black/15 p-4 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
+                             className="rounded-lg bg-white/90 backdrop-blur-md border border-black/20 p-4 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
             >
               {/* Section badge */}
-              <div className="inline-flex items-center gap-2 bg-black/5 border border-black/10 rounded-full px-4 py-1.5 mb-4">
-                <div className="w-2 h-2 bg-brand-flame rounded-full" />
-                <span className="text-black/70 text-xs font-semibold tracking-wide">GLOBAL TOUR</span>
+              <div className="inline-flex items-center gap-2 bg-gray-600 border border-gray-500 rounded-full px-4 py-1.5 mb-4">
+                <div className="w-2 h-2 bg-white rounded-full" />
+                <span className="text-white text-xs font-semibold tracking-wide">GLOBAL TOUR</span>
               </div>
 
               {/* Premium headline */}
@@ -132,6 +132,19 @@ export default function WorldTeaser({
               <p className="text-sm md:text-base text-black/70 mb-4 leading-relaxed max-w-lg">
                 Request your city—get friends to vote. <span className="font-semibold text-black/80">The hottest map wins.</span>
               </p>
+
+              {/* Email input for voting */}
+              <div className="mb-4">
+                <label htmlFor="vote-email" className="block text-sm font-medium text-black/70 mb-2">
+                  Your email to cast a vote
+                </label>
+                <input
+                  type="email"
+                  id="vote-email"
+                  placeholder="you@example.com"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-flame focus:border-brand-flame text-sm"
+                />
+              </div>
 
               {/* Features list */}
               <div className="space-y-2 mb-3">
@@ -163,7 +176,7 @@ export default function WorldTeaser({
               >
                 <Button 
                   size="sm"
-                  className="group bg-brand-flame hover:bg-brand-flame/90 text-white font-semibold px-6 py-2 text-sm rounded-full shadow-lg transition-all duration-200" 
+                  className="group bg-gray-600 hover:bg-gray-700 text-white font-semibold px-6 py-2 text-sm rounded-md shadow-lg transition-all duration-200" 
                   onClick={handleRequestCity}
                 >
                   <span className="flex items-center gap-2">
@@ -284,7 +297,7 @@ export default function WorldTeaser({
                                 }`}>
                                   {percentage}%
                                 </span>
-                                                                 <Button size="sm" className="ml-2 bg-brand-flame text-white hover:bg-brand-flame/90 text-xs px-4 py-2 rounded-md font-semibold shadow-sm hover:shadow-md transition-all duration-200" onClick={() => openVoteFor(city)}>
+                                                                 <Button size="sm" className="ml-2 bg-gray-600 text-white hover:bg-gray-700 text-xs px-4 py-2 rounded-md font-semibold shadow-sm hover:shadow-md transition-all duration-200" onClick={() => openVoteFor(city)}>
                                    VOTE
                                  </Button>
                               </div>
